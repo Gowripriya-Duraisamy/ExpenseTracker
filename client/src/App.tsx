@@ -1,19 +1,11 @@
-import {useEffect} from  "react";
-
-import './App.css';
-import { signIn } from "./slices/login/action";
-import { useDispatch } from './store';
+import { StyledEngineProvider } from "@mui/material";
+import "./App.css";
+import RenderRoutes from "./routes";
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(signIn());
-  }, [dispatch]);
-
   return (
     <div className="App">
-    
+      <StyledEngineProvider injectFirst>{RenderRoutes()}</StyledEngineProvider>
     </div>
   );
 }
