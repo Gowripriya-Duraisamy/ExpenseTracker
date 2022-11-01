@@ -78,7 +78,7 @@ router.post("/googleSignIn", async (req: Request, res: Response) => {
     if (payload?.email) {
       await User.findOneAndUpdate(
         {
-          emailId: payload.email,
+          email: payload.email,
         },
         {
           email: payload.email,
