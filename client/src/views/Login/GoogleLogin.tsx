@@ -21,6 +21,7 @@ const GoogleLogin = () => {
   return (
     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ""}>
       <GoogleSignIn
+        width="250"
         text="signin_with"
         onSuccess={handleLoginSuccess}
         onError={handleLoginError}

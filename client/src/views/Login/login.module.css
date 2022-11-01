@@ -1,5 +1,5 @@
 .card {
-    width: 50%;
+    width: 40%;
     margin: auto;
 }
 
@@ -13,8 +13,7 @@
 .header {
     font-size: 2rem;
     font-weight: bold;
-    padding: 1rem 2rem;
-    padding-left: 0;
+    padding: 1rem;
 }
 
 .field {
@@ -32,6 +31,7 @@
 .socialHeader {
     font-size: 14px;
     padding: 8px 0;
+    padding-bottom: 1.5rem;
     display: flex;
     justify-content: flex-start;
 }
