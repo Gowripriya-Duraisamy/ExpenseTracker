@@ -1,9 +1,9 @@
 import express from "express";
 
-import { LoginController } from '../controllers/unAuth/login';
+import { UserController } from '../controllers/unAuth/user';
 
 const router = express.Router();
 
-router.use("/login", LoginController);
+router.use("/user", UserController);
 
 export {router as UnAuthRoutes};

@@ -25,6 +25,7 @@
     width: 90%;
     padding: 12px;
     margin: 1.5rem 0;
+    margin-top: 1rem;
     font-size: 1rem;
 }
 
@@ -58,6 +59,11 @@
     display: flex;
     width: 100%;
     margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.loginButton:hover {
+    background-color: #0c710f;
 }
 
 .itemGrid {
@@ -69,8 +75,8 @@
     text-decoration: underline;
 }
 
-.register :hover,
-.password   :hover{
+.register:hover,
+.password:hover{
     cursor: pointer;
     color: #0c710f;
 }
