@@ -13,7 +13,6 @@ const UserProfileSchema = new Schema<UserProfile>({
   },
   password: {
     type: String,
-    required: true,
   },
 });
 

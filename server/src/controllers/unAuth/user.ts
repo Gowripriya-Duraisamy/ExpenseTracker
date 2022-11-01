@@ -1,11 +1,15 @@
 import express, { Request, Response } from "express";
 import bcrypt from "bcryptjs";
+import { OAuth2Client } from "google-auth-library";
 
 import { RegisterAttributes } from "../../types/unAuth/user";
 import User from "../../models/user";
 import { generateToken } from "../../utils/jwt";
+import { development } from "../../config";
 
 const router = express.Router();
+const client = new OAuth2Client(process.env.CLIENT_ID);
+const { clientId } = development;
 
 router.post(
   "/login",
@@ -26,7 +30,7 @@ router.post(
             issuer: "Jove",
           }
         );
-        return compare
+        return (compare && user.password)
           ? res.status(200).json({ token: token })
           : res.status(500).json({ error: "Password doesnt match" });
       }
@@ -56,11 +60,50 @@ router.post(
           issuer: "Jove",
         }
       );
-      res.status(200).json({token: token});
+      res.status(200).json({ token: token });
     } catch (error) {
       res.status(500).json({ error });
     }
   }
 );
+
+router.post("/googleSignIn", async (req: Request, res: Response) => {
+  try {
+    const { credential } = req.body;
+    const ticket = await client.verifyIdToken({
+      idToken: credential,
+      audience: clientId,
+    });
+    const payload = ticket.getPayload();
+    if (payload?.email) {
+      await User.findOneAndUpdate(
+        {
+          emailId: payload.email,
+        },
+        {
+          email: payload.email,
+          password: ""
+        },
+        {
+          upsert: true,
+          new: true,
+        }
+      ).exec();
+
+       const token = generateToken({
+        name: payload?.given_name,
+        email: payload?.email
+      }, {
+        algorithm: "RS256",
+        expiresIn: "12h",
+        issuer: "Jove"
+      })
+      return res.status(200).json({token, message: "Logged In"})
+    } 
+    return res.status(500).json({message: "Email signin failed"})
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
 
 export { router as UserController };

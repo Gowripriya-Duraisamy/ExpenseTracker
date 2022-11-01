@@ -5,5 +5,6 @@ export const development = {
     username: process.env.MONGO_USERNAME || '',
     host: process.env.MONGO_HOST || '',
     password: process.env.MONGO_PASSWORD || '',
-    db: process.env.MONGO_DB || ''
+    db: process.env.MONGO_DB || '',
+    clientId: process.env.GOOGLE_CLIENT_ID || ''
 }

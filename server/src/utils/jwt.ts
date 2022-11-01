@@ -4,6 +4,7 @@ import { join } from "path";
 
 interface TokenPayload {
     email: string,
+    name?: string
 }
 
 export const generateToken = (payload: TokenPayload, signOptions: jwt.SignOptions) => {
