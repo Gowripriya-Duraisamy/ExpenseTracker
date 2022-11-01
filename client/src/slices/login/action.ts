@@ -1,14 +1,14 @@
-import axios from "axios";
 import { CredentialResponse } from "@react-oauth/google";
 
 import { AppThunk } from "../../store";
+import axios from "../../utils/axios";
 
 export const login =
   (email: string, password: string): AppThunk =>
   async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/user/login/",
+        "api/user/login/",
         { email, password },
         {
           headers: {
@@ -27,7 +27,7 @@ export const register =
   async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/user/register",
+        "api/user/register",
         { email, password },
         {
           headers: {
@@ -44,7 +44,7 @@ export const register =
 export const googleSignIn = (data: CredentialResponse): AppThunk => async () => {
   try {
     const response = await axios.post(
-      "http://localhost:5000/api/user/googleSignIn",
+      "api/user/googleSignIn",
       data,
       {
         headers: {
