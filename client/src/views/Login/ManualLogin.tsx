@@ -3,11 +3,10 @@ import { Typography, Button } from "@mui/material";
 import { Form, Formik } from "formik";
 
 import classes from "./login.module.css";
-import { useDispatch } from "../../store";
-import { login, register } from "../../slices/login/action";
+import useAuth from "../../hooks/useAuth";
 
 const ManualLogin = () => {
-  const dispatch = useDispatch();
+  const {login, register} = useAuth();
   const [isLogin, setLogin] = useState(false);
 
   const handleButtonClick = () => {
@@ -22,8 +21,8 @@ const ManualLogin = () => {
       }}
       onSubmit={(values) => {
         if (values.email && values.password) {
-          !isLogin && dispatch(register(values.email, values.password));
-          isLogin && dispatch(login(values.email, values.password));
+          !isLogin && register(values.email, values.password);
+          isLogin && login(values.email, values.password);
         }
       }}
     >

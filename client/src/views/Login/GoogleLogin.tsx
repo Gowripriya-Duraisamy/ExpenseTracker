@@ -4,22 +4,22 @@ import {
   CredentialResponse,
 } from "@react-oauth/google";
 
-import { googleSignIn } from "../../slices/login/action";
-import { useDispatch } from "../../store";
+import useAuth from "../../hooks/useAuth";
 
 const GoogleLogin = () => {
-  const dispatch = useDispatch();
+  const { googleSignIn } = useAuth();
 
   const handleLoginSuccess = (credentialData: CredentialResponse) => {
-    console.log("check")
-    dispatch(googleSignIn(credentialData));
+    googleSignIn(credentialData);
   };
 
   const handleLoginError = () => {
     console.log("Login failed");
   };
   return (
-    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ""}>
+    <GoogleOAuthProvider
+      clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ""}
+    >
       <GoogleSignIn
         width="250"
         text="signin_with"
