@@ -1,16 +1,24 @@
 import { useState } from "react";
 import { Typography, Button } from "@mui/material";
 import { Form, Formik } from "formik";
+import { useNavigate, useParams } from "react-router-dom";
 
 import classes from "./login.module.css";
 import useAuth from "../../hooks/useAuth";
 
 const ManualLogin = () => {
-  const {login, register} = useAuth();
-  const [isLogin, setLogin] = useState(false);
+  const { login, register } = useAuth();
+  const navigate = useNavigate();
+  const params = useParams();
+  const { type } = params;
+  console.log("type", type);
 
-  const handleButtonClick = () => {
-    setLogin((prevState) => !prevState);
+  const handleButtonClick = (type: string) => {
+    navigate(`/user/${type}`);
+  };
+
+  const handlePasswordClick = () => {
+    navigate("/forgotPassword");
   };
 
   return (
@@ -21,8 +29,8 @@ const ManualLogin = () => {
       }}
       onSubmit={(values) => {
         if (values.email && values.password) {
-          !isLogin && register(values.email, values.password);
-          isLogin && login(values.email, values.password);
+          type === "register" && register(values.email, values.password);
+          type === "login" && login(values.email, values.password);
         }
       }}
     >
@@ -46,37 +54,44 @@ const ManualLogin = () => {
             onChange={handleChange}
             className={classes.field}
           />
-          {!!isLogin && <Typography className={classes.password}>Forgot Password</Typography>}
-          {!!isLogin && (
+          {type === "login" && (
             <>
+              <Typography
+                onClick={handlePasswordClick}
+                className={classes.password}
+              >
+                Forgot Password
+              </Typography>
               <Button className={classes.loginButton} type="submit">
                 LOGIN
               </Button>
               <Typography
                 onClick={() => {
-                  handleButtonClick();
+                  handleButtonClick("register");
                   setFieldValue("email", "");
                   setFieldValue("password", "");
                 }}
               >
-                Don't have an account?{" "}
+                Don't have an account?
+                <span> </span>
                 <span className={classes.register}>Register</span>
               </Typography>
             </>
           )}
-          {!isLogin && (
+          {type === "register" && (
             <>
               <Button className={classes.loginButton} type="submit">
                 REGISTER
               </Button>
               <Typography
                 onClick={() => {
-                  handleButtonClick();
+                  handleButtonClick("login");
                   setFieldValue("email", "");
                   setFieldValue("password", "");
                 }}
               >
-                Have an account?{" "}
+                Have an account?
+                <span> </span>
                 <span className={classes.register}>Sign In</span>
               </Typography>
             </>
