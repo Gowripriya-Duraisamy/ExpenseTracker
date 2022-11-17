@@ -1,0 +1,78 @@
+.card {
+    width: 40%;
+    margin: auto;
+    margin-top: 12rem;
+}
+
+.cardContent {
+    padding: 1.5rem;
+}
+
+.walletHeader {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 1.3rem;
+    font-weight: 550;
+    font-family: sans-serif;
+}
+
+.divider {
+    margin: 1rem 0;
+}
+
+.label {
+    display: block;
+    font-size: 13px;
+    color: #0000008a;
+    padding: 5px 1rem;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.field {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 1rem;
+}
+
+.walletBox {
+    border: 1px #00000025 solid;
+    border-radius: 8px;
+    width: 50%;
+}
+
+.formGroup {
+    margin-top: 1rem;
+}
+
+.formHelper {
+    margin-left: 2rem;
+}
+
+.containerGrid {
+    margin: 1.5rem 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttonGrid {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.button {
+    background: #00bc2a;
+    padding: 6px;
+    border: 1px #00bc2a solid;
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    width: 20%;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.button:hover {
+    background-color: #1bcd21;
+}

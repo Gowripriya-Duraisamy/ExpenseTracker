@@ -1,0 +1,150 @@
+.divider {
+    margin-top: 1rem;
+}
+
+.button {
+    background: #00bc2a;
+    padding: 6px;
+    border: 1px #00bc2a solid;
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    width: 15%;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.cancelButton {
+    background: #f5f5f5;
+    color: #00bc2a;
+    border: 1px #f5f5f5 solid;
+    padding: 6px;
+    border-radius: 8px;
+    display: flex;
+    width: 15%;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.cancelButton:hover {
+    background-color: #d2eed8;
+}
+
+.button:hover {
+    background-color: #1bcd21;
+}
+
+.transactionHeader {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 1.3rem;
+    font-weight: 550;
+    font-family: sans-serif;
+}
+
+.containerBox {
+    border: 1px #00000025 solid;
+    border-radius: 8px;
+    width: 50%;
+}
+
+.containerGrid {
+    margin: 1.5rem 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.label {
+    display: block;
+    font-size: 13px;
+    color: #0000008a;
+    padding: 5px 1rem;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.field {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 1rem;
+}
+
+.moreDetails {
+    color: #00bc2a;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.formGroup {
+    margin-top: 1rem;
+}
+
+.formHelper {
+    margin-left: 2rem;
+}
+
+.containerBox1 {
+    border: 1px #00000025 solid;
+    border-radius: 8px;
+    height: 3rem;
+}
+
+.containerGrid1 {
+    margin: 0.8rem 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.photoBox {
+    border: 1px #00000025 solid;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.questionBox {
+    background-color: #e5e2e2;
+    color: #8b8b8b;
+    padding:  1px 8px;
+    border-radius: 1.5rem;
+}
+
+.categoryHeader {
+    display: inline;
+    margin-left: 1.5rem;
+}
+
+.searchBox {
+    background-color: #e7e7e76c;
+    border-radius: 1.5rem;
+    width: 70%;
+    margin: auto;
+    padding: 4px;
+}
+
+.categoryBox {
+    cursor: pointer;
+}
+
+.categoryBox:hover {
+    background-color: #d2eed8;
+}
+
+.categoryBoxSelected {
+    background-color: #d2eed8;
+    cursor: pointer;
+}
+
+.categoryName {
+    padding: 1rem;
+}
+
+.categoryDivider {
+    margin-top: 2px;
+    border-bottom: 1px #e2e1e1 solid;
+}
+
+.box {
+    margin-top: 1rem;
+    height: 25rem;
+}
