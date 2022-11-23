@@ -1,19 +1,16 @@
-import {  AccountBalanceWallet, HelpOutlined ,Menu, ShoppingCart } from "@mui/icons-material";
+import {  AccountBalanceWallet, HelpOutlined , ShoppingCart } from "@mui/icons-material";
 import { Box, Drawer, Grid, IconButton, Typography } from "@mui/material";
 import ReusableIcon from "../../../components/ReusableIcon";
 
 import classes from "./leftbar.module.css";
+import SwipeDrawer from "./Drawer/SwipeDrawer";
 
 const LeftBar = () => {
   return (
     <Box>
       <Drawer variant="permanent" anchor="left">
           <Grid container direction={"column"}>
-            <Box className={classes.box}>
-              <IconButton>
-                <Menu />
-              </IconButton>
-            </Box>
+           <SwipeDrawer />
             <Box className={classes.box}>
               <IconButton>
                 <AccountBalanceWallet />

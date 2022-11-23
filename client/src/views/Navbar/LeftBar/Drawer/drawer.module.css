@@ -1,0 +1,80 @@
+
+.listbox {
+    display: flex;
+    justify-content: space-between;
+}
+
+.menuGrid:hover {
+   cursor: pointer;
+   background-color: rgba(218, 247, 236, 0.712);
+}
+
+.drawerIcon{
+    margin: 8px;
+}
+
+.listName {
+    display: inline;
+    padding: 1.2rem 7rem;
+    padding-left: 0;
+}
+
+.arrowIcon {
+    padding: 8px 3rem;
+    padding-right: 1rem;
+}
+
+.arrowIcon:hover,
+.drawerIcon:hover {
+    pointer-events: none;
+}
+
+.avatar {
+    background-color: rgb(188, 30, 193);
+    margin: 2rem auto;
+    margin-bottom: 0;
+    padding: 16px;
+    font-size: 2rem;
+    font-weight: 550;
+}
+
+.mail {
+    margin: 1rem auto;
+    font-weight: 100;
+    font-size: 12px;
+    color: #c4c4c4;
+    margin-top: 0;
+}
+
+.username {
+    margin: 1rem auto;
+    font-weight: 400;
+    margin-bottom: 0;
+    font-size: 1rem;
+}
+
+.badge {
+    background-color: #a3a3a3;
+    border: 1px #b3b3b3 solid;
+    width:35%;
+    margin: 0 auto;
+    position: absolute;
+    z-index: 1;
+    top: 5.5rem;
+    left:7rem;
+}
+
+.badgeName {
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-weight: 400;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.divider {
+    width: 85%;
+    margin:auto;
+    margin-right: 0;
+}

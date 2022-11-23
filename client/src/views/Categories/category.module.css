@@ -1,5 +1,5 @@
 .box {
-    width: 40%;
+    width: 90%;
     margin: auto;
     background-color: #dfdddd;
     border-radius: 4px;
@@ -7,7 +7,9 @@
     padding: 3rem 0;
 }
 
-.grid {
+.outerGrid {
+    display: flex;
+    justify-content: space-around;
     background-color: #dfdddd;
 }
 
@@ -15,8 +17,9 @@
     padding: 0.5rem;
     display: flex;
     justify-content: flex-start;
-    border-bottom: 1px solid  #ececec8a;
+    border-bottom: 1px solid #ececec8a;
     border-radius: 1px;
+    cursor: pointer;
 }
 
 .subCardContent {
@@ -24,7 +27,7 @@
 }
 
 .categoryHeader {
-    background-color:  #ececec8a;
+    background-color: #ececec8a;
     display: flex;
     justify-content: flex-start;
     padding: 0.5rem;
@@ -47,11 +50,52 @@
     padding-left: 3rem;
 }
 
-.appBar{
+.appBar {
     background: white;
 }
 
 .divider {
     width: 100%;
     display: block;
+}
+
+.detailGrid {
+    margin-top: 3rem;
+}
+
+
+.detailsBox {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1rem;
+    padding-top: 0;
+}
+
+.detailHeader {
+    display: inline;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding-left: 1.5rem;
+}
+
+.categoryType {
+    background-color: red;
+    border-radius: 12px;
+    border: 1px white solid;
+    width: 28%;
+    color: white;
+    font-size: 10px;
+    margin: 4px 8px;
+}
+
+.categoryDetailName {
+    display: flex;
+    padding: 0 8px;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.listGrid {
+    padding: 1.5rem;
 }

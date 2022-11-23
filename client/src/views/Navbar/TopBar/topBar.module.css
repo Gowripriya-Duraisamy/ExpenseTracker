@@ -1,3 +1,27 @@
 .appBar {
     background-color: white;
 }
+
+.searchBox {
+    padding-right: 2rem;
+}
+
+.dateValue {
+    z-index: 2;
+    color: black;
+    font-size: 10px;
+    position: absolute;
+    top: 24px;
+}
+
+.dateIcon {
+    z-index: 1;
+    position: absolute;
+    top: 10px;
+}
+
+.calendarBox {
+    padding: 0 14px;
+    display: flex;
+    justify-content: center;
+}
