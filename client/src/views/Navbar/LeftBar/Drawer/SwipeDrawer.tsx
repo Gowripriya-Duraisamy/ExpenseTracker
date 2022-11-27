@@ -35,7 +35,9 @@ const SwipeDrawer = () => {
           <MenuItem
             icon={<AccountBalanceWallet />}
             name={"My Wallets"}
-            handleClick={() => {}}
+            handleClick={() => {
+              navigate("/wallet")
+            }}
           />
           <MenuItem
             icon={

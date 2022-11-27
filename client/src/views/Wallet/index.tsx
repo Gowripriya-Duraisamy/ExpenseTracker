@@ -12,6 +12,8 @@ import {
   Typography,
 } from "@mui/material";
 
+import Currency from "./Currency";
+import Icon from "./Icon";
 import classes from "./wallet.module.css";
 
 const Wallet = () => {
@@ -22,20 +24,24 @@ const Wallet = () => {
           Add a wallet First!
         </Typography>
         <Divider className={classes.divider} />
-        <Grid className={classes.walletBox}>
-          <label className={classes.label}>Wallet name</label>
-          <TextField
-            variant="standard"
-            className={classes.field}
-            placeholder="Your wallet name?"
-            InputProps={{
-              disableUnderline: true,
-            }}
-          />
+        <Grid container>
+            <Icon />
+          <Grid item xs={8.5} className={classes.walletBox}>
+            <label className={classes.label}>Wallet name</label>
+            <TextField
+              variant="standard"
+              className={classes.field}
+              placeholder="Your wallet name?"
+              InputProps={{
+                disableUnderline: true,
+              }}
+            />
+          </Grid>
         </Grid>
         <Grid container className={classes.containerGrid}>
           <Grid className={classes.walletBox} item xs={6.5}>
             <label className={classes.label}>Currency</label>
+            <Currency />
           </Grid>
           <Grid className={classes.walletBox} item xs={5}>
             <label className={classes.label}>Initial Balance</label>
@@ -59,7 +65,9 @@ const Wallet = () => {
           </FormHelperText>
         </FormGroup>
         <Grid className={classes.buttonGrid}>
-          <Button className={classes.button}>Save</Button>
+          <Button disabled className={classes.button}>
+            Save
+          </Button>
         </Grid>
       </CardContent>
     </Card>

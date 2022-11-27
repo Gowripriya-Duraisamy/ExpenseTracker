@@ -1,10 +1,16 @@
 import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { FC } from "react";
 
-import classes from "./category.module.css";
-import ElevationScroll from "../../utils/ElevationScroll";
+import classes from "./Header.module.css";
+import ElevationScroll from "./ElevationScroll";
 
-const Header = () => {
+
+interface HeaderProps {
+    name: string;
+}
+
+const Header: FC<HeaderProps> = ({name}) => {
   return (
     <>
       <ElevationScroll>
@@ -13,7 +19,7 @@ const Header = () => {
             <IconButton>
               <ArrowBackIcon />
             </IconButton>
-            <Typography className={classes.title}>Categories</Typography>
+            <Typography className={classes.title}>{name}</Typography>
           </Box>
         </AppBar>
       </ElevationScroll>

@@ -1,0 +1,19 @@
+.title {
+    display: inline;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 0.5rem;
+    padding-left: 1.5rem;
+    color: black;
+}
+
+.header {
+    padding: 0.4rem;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 3rem;
+}
+
+.appBar {
+    background: white;
+}

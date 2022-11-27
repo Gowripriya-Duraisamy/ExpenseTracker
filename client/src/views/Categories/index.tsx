@@ -8,13 +8,14 @@ import {
   Typography,
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
+import { useState } from "react";
 
-import { Categories as CategoryList } from "../../constants";
+import { Categories as CategoryList } from "../../constants/categories";
 import SubCategory, { SubCategoryList } from "./SubCategoryList";
 import classes from "./category.module.css";
-import Header from "./Header";
-import { useState } from "react";
+import Header from "../../components/CommonHeader";
 import ReusableIcon from "../../components/ReusableIcon";
+import { CATEGORIES } from "../../constants";
 
 const Catagories = () => {
   const [selectedCategory, setSelectedCategory] =
@@ -26,7 +27,7 @@ const Catagories = () => {
 
   return (
     <>
-      <Header />
+      <Header name={CATEGORIES} />
       <Grid container className={classes.outerGrid}>
         <Grid item xs={5} className={classes.grid}>
           <Box className={classes.box}>

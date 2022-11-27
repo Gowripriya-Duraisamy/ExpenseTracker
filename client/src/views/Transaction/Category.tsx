@@ -23,7 +23,7 @@ import {
 } from "react";
 
 import classes from "./transaction.module.css";
-import { EntireCategrories } from "../../constants";
+import { EntireCategrories } from "../../constants/categories";
 import { CategoryAttributes } from "../Categories/types";
 
 interface CategoryProps {

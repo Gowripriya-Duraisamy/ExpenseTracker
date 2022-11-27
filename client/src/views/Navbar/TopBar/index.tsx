@@ -14,7 +14,7 @@ const TopBar = () => {
           <Grid container justifyContent={"flex-end"}>
             <Box className={classes.calendarBox}>
                 <Typography className={classes.dateValue}>{new Date().getDate()}</Typography>
-                <IconButton><CalendarToday className={classes.dateIcon} font-size={"large"} /></IconButton>
+                <IconButton><CalendarToday className={classes.dateIcon} fontSize={"large"} /></IconButton>
             </Box>
           <Box>
             <IconButton>
