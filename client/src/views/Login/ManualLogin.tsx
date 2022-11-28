@@ -10,7 +10,6 @@ const ManualLogin = () => {
   const navigate = useNavigate();
   const params = useParams();
   const { type } = params;
-  console.log("type", type);
 
   const handleButtonClick = (type: string) => {
     navigate(`/user/${type}`);

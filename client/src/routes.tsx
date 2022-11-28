@@ -1,25 +1,69 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import { Fragment, lazy, Suspense } from "react";
+import { CircularProgress } from "@mui/material";
+import GuestGuard from "./components/GuestGuard";
+import AuthGuard from "./components/AuthGuard";
+import MainLayout from "./views/Main/index";
 
-import Login from "./views/Login";
-import ForgotPassword from "./views/ForgotPassword";
-import ResetPassword from "./views/ResetPassword";
-import Wallet from "./views/Wallet";
-import Account from "./views/Account";
-import Categories from "./views/Categories";
-import NavBar from "./views/Navbar";
+export interface RouteAttributes {
+  path: string;
+  guard?: any;
+  layout?: any;
+  component?: any;
+  navigatePath?: string;
+  nestedPath?: string;
+}
 
-const RenderRoutes = () => {
+export const routes: RouteAttributes[] = [
+  {
+    path: "/404",
+    component: lazy(() => import("./views/Error/")),
+  },
+  {
+    path: "/expense/transactions",
+    guard: AuthGuard,
+    layout: MainLayout,
+  },
+  {
+    path: "/",
+    guard: GuestGuard,
+    navigatePath: "/user/login",
+  },
+  {
+    path: "/user/:type",
+    guard: GuestGuard,
+    component: lazy(() => import("./views/Login")),
+  },
+  {
+    path: "*",
+    component: lazy(() => import("./views/Error/")),
+  },
+];
+
+const RenderRoutes = (routes: RouteAttributes[]) => {
   return (
-    <Routes>
-      <Route path="" element={<Navigate to="/user/login" />} />
-      <Route path="/user/:type" element={<Login />} />
-      <Route path="/forgotPassword" element={<ForgotPassword />} />
-      <Route path="/resetPassword/:userId" element={<ResetPassword />} />
-      <Route path="/wallet" element={<Wallet />} />
-      <Route path="/account" element={<Account />} />
-      <Route path="/categories" element={<Categories />} />
-      <Route path="/navbar" element={<NavBar />} />
-    </Routes>
+    <Suspense fallback={<CircularProgress />}>
+      <Routes>
+        {routes.map((route, index) => {
+          const Guard = route.guard || Fragment;
+          const Component = route.component || Fragment;
+          const Layout = route.layout || Fragment;
+          let element;
+          if (route.navigatePath) {
+            element = <Navigate to={route.navigatePath} />;
+          } else {
+            element = (
+              <Guard>
+                <Layout>
+                  <Component />
+                </Layout>
+              </Guard>
+            );
+          }
+          return <Route key={index} path={route.path} element={element} />;
+        })}
+      </Routes>
+    </Suspense>
   );
 };
 
