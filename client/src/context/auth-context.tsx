@@ -1,10 +1,8 @@
 import { CredentialResponse } from "@react-oauth/google";
 import { createContext, FC, useReducer } from "react";
-import jwtDecode from "jwt-decode";
 import axios from "../utils/axios";
 import {
   AuthState,
-  TokenUser,
   LoginAttributes,
   AuthContextValue,
   Action,
@@ -47,12 +45,11 @@ export const AuthContextProvider: FC<AuthProviderProps> = ({children}) => {
   const dispatchUser = (data: LoginAttributes) => {
     if (data.token) {
       localStorage.setItem("token", data.token);
-      const user = jwtDecode<TokenUser>(data.token);
       axios.defaults.headers.common.Authorization = `Bearer ${data.token}`;
       dispatch({
         type: "LOGIN",
         payload: {
-          user,
+          user: data.user,
         },
       });
     } else {
@@ -63,7 +60,7 @@ export const AuthContextProvider: FC<AuthProviderProps> = ({children}) => {
 
   const loginHandler = async (email: string, password: string) => {
     try {
-      const response = await axios.post(
+      const response = await axios.post<LoginAttributes>(
         "api/user/login/",
         { email, password },
         {
@@ -80,7 +77,7 @@ export const AuthContextProvider: FC<AuthProviderProps> = ({children}) => {
 
   const registerHandler = async (email: string, password: string) => {
     try {
-      const response = await axios.post(
+      const response = await axios.post<LoginAttributes>(
         "api/user/register",
         { email, password },
         {
@@ -115,7 +112,7 @@ export const AuthContextProvider: FC<AuthProviderProps> = ({children}) => {
 
   const googleSignInHandler = async (data: CredentialResponse) => {
     try {
-      const response = await axios.post("api/user/googleSignIn", data, {
+      const response = await axios.post<LoginAttributes>("api/user/googleSignIn", data, {
         headers: {
           "Content-Type": "application/json",
         },

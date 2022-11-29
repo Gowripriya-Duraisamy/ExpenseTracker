@@ -15,9 +15,13 @@ import {
 import Currency from "./Currency";
 import Icon from "./Icon";
 import classes from "./wallet.module.css";
+import Header from "../../components/CommonHeader";
+import { MY_WALLET } from "../../constants";
 
 const Wallet = () => {
   return (
+    <>
+   <Header name={MY_WALLET} />
     <Card className={classes.card}>
       <CardContent className={classes.cardContent}>
         <Typography className={classes.walletHeader}>
@@ -71,6 +75,7 @@ const Wallet = () => {
         </Grid>
       </CardContent>
     </Card>
+    </>
   );
 };
 

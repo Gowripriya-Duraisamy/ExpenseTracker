@@ -34,7 +34,7 @@ router.post(
           }
         );
         return compare && user.password
-          ? res.status(200).json({ token: token })
+          ? res.status(200).json({ token: token, user: user })
           : res.status(500).json({ error: "Password doesnt match" });
       }
       return res.status(500).json({ error: "User doesnt exist." });
@@ -51,8 +51,19 @@ router.post(
       const { email, password } = req.body;
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
-      const user = new User({ email, password: hashedPassword });
-      await user.save();
+      const userData = await User.findOneAndUpdate(
+        {
+          email: email,
+        },
+        {
+          email,
+          password: hashedPassword,
+        },
+        {
+          upsert: true,
+          new: true,
+        }
+      ).exec();
       const token = generateToken(
         {
           email: email,
@@ -63,7 +74,7 @@ router.post(
           issuer: "Jove",
         }
       );
-      res.status(200).json({ token: token, message: "Registered User" });
+      res.status(200).json({ token: token, user: userData, message: "Registered User" });
     } catch (error) {
       res.status(500).json({ error });
     }
@@ -79,20 +90,18 @@ router.post("/googleSignIn", async (req: Request, res: Response) => {
     });
     const payload = ticket.getPayload();
     if (payload?.email) {
-      await User.findOneAndUpdate(
+      const userData = await User.findOneAndUpdate(
         {
           email: payload.email,
         },
         {
           email: payload.email,
-          password: "",
         },
         {
           upsert: true,
           new: true,
         }
       ).exec();
-
       const token = generateToken(
         {
           name: payload?.given_name,
@@ -104,7 +113,7 @@ router.post("/googleSignIn", async (req: Request, res: Response) => {
           issuer: "Jove",
         }
       );
-      return res.status(200).json({ token, message: "Logged In" });
+      return res.status(200).json({ token, user: userData, message: "Logged In" });
     }
     return res.status(500).json({ message: "Email signin failed" });
   } catch (error) {

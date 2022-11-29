@@ -1,10 +1,19 @@
 import { CredentialResponse } from "@react-oauth/google";
 import { ReactNode } from "react";
 
+export interface User {
+  email: string;
+  id: string;
+  password: string;
+  walletExist: string;
+}
+
 export interface LoginAttributes {
   token: string;
   message: string;
+  user: User;
 }
+
 export interface TokenUser {
   id: string;
   email: string;
@@ -12,13 +21,13 @@ export interface TokenUser {
 
 export interface AuthState {
   isAuthenticated: boolean;
-  user: TokenUser | null;
+  user: User | null;
 }
 
 export type LoginAction = {
   type: "LOGIN";
   payload: {
-    user: TokenUser;
+    user: User;
   };
 };
 

@@ -1,24 +1,31 @@
-import { FC, ReactNode, useEffect } from "react";
+import { FC, ReactNode, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import useAuth from "../hooks/useAuth";
 
 interface GuestGuardProps {
-    children?: ReactNode
+  children?: ReactNode;
 }
 
-const GuestGuard: FC<GuestGuardProps> = ({children}) => {
-    const {isAuthenticated} = useAuth();
-    const navigate = useNavigate();
+const GuestGuard: FC<GuestGuardProps> = ({ children }) => {
+  const { isAuthenticated, user } = useAuth();
+  const navigate = useNavigate();
 
-    console.log("GuestGuard", isAuthenticated);
+  const navigatePage = useCallback(
+    (authenticated: boolean) => {
+      if (authenticated) {
+        user?.walletExist
+          ? navigate("/expense/transactions", { replace: true })
+          : navigate("/expense/wallet", { replace: true });
+      }
+    },
+    [user, navigate]
+  );
 
-    useEffect(() => {
-        if(isAuthenticated) {
-            navigate("/expense/transactions", {replace: true}); 
-        }
-    }, [isAuthenticated]); //eslint-disable-line
-    return <>{children}</>
-}
+  useEffect(() => {
+    navigatePage(isAuthenticated);
+  }, [isAuthenticated, navigatePage]);
+  return <>{children}</>;
+};
 
 export default GuestGuard;

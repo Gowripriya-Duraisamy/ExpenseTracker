@@ -8,6 +8,7 @@ import ElevationScroll from "./ElevationScroll";
 
 interface HeaderProps {
     name: string;
+    disabled?: boolean;
 }
 
 const Header: FC<HeaderProps> = ({name}) => {
