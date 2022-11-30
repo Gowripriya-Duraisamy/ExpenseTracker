@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Dialog,
   DialogContent,
@@ -14,8 +15,9 @@ import {
   KeyboardArrowRight,
   MonetizationOn,
   Search,
+  Done,
 } from "@mui/icons-material";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import getSymbolFromCurrency from "currency-symbol-map";
 import CurrencyFlag from "react-currency-flags";
 
@@ -27,12 +29,26 @@ export interface CurrencyData {
   code: string;
 }
 
-const Currency = () => {
+export interface CurrencyProps {
+  selectedCurrency: CurrencyData,
+  handleSelectedCurrency: (currencyData: CurrencyData) => void
+}
+
+const Currency: FC<CurrencyProps> = ({
+  handleSelectedCurrency,
+  selectedCurrency
+}) => {
   const [isCurrencyDialogOpen, setCurrencyDialog] = useState(false);
   const [currencyList, setCurrencyList] = useState<CurrencyData[]>(CURRENCIES);
+  
 
   const handleCurrencyDialog = () => {
     setCurrencyDialog((prevState) => !prevState);
+  };
+
+  const handleCurrencySelection = (data: CurrencyData) => {
+    handleSelectedCurrency(data);
+    handleCurrencyDialog();
   };
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
@@ -48,22 +64,36 @@ const Currency = () => {
   return (
     <>
       <TextField
-        className={classes.field}
+        className={classes.currencyField}
         variant="standard"
         placeholder="Select currency"
         onClick={handleCurrencyDialog}
+        value={selectedCurrency.name}
+        sx={{ input: { cursor: 'pointer' } }}
+        inputProps= {{
+          readOnly: true
+        }}
         InputProps={{
           disableUnderline: true,
           startAdornment: (
             <InputAdornment position="start">
               <IconButton>
-                <MonetizationOn sx={{ background: "#f5f5f5" }} />
+                {selectedCurrency.name ?  (
+                  <Avatar sx={{ width: 24, height: 24 }}   className={classes.pointer}>
+                    <CurrencyFlag
+                      currency={selectedCurrency.code}
+                      height={18}
+                    />
+                  </Avatar>
+                ): (
+                  <MonetizationOn sx={{ background: "#f5f5f5" }} />
+                )}
               </IconButton>
             </InputAdornment>
           ),
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton>
+              <IconButton className={classes.pointer}>
                 <KeyboardArrowRight />
               </IconButton>
             </InputAdornment>
@@ -103,12 +133,19 @@ const Currency = () => {
         <DialogContent>
           <Box className={classes.currencyOuterBox}>
             {currencyList.map((currency, index) => {
+              const currencySelected =
+                selectedCurrency.name === currency.name || false;
               return (
-                <Grid container key={index} className={classes.currencyBox}>
+                <Grid
+                  container
+                  key={index}
+                  onClick={() => handleCurrencySelection(currency)}
+                  className={classes.currencyBox}
+                >
                   <Grid item xs={1} className={classes.flag}>
-                    <CurrencyFlag currency={currency.code} height={30} />
+                    <CurrencyFlag currency={currency.code} height={28} />
                   </Grid>
-                  <Grid item xs={8}>
+                  <Grid item xs={7} className={classes.currencyNameGrid}>
                     <Typography className={classes.currencyName}>
                       {currency.name}
                     </Typography>
@@ -116,6 +153,13 @@ const Currency = () => {
                       {currency.code} - {getSymbolFromCurrency(currency.code)}
                     </Typography>
                   </Grid>
+                  {currencySelected && (
+                    <Grid item xs={2}>
+                      <IconButton>
+                        <Done sx={{ color: "#5dfa7f" }} />
+                      </IconButton>
+                    </Grid>
+                  )}
                 </Grid>
               );
             })}

@@ -1,7 +1,7 @@
 .card {
-    width: 33%;
+    width: 35%;
     margin: auto;
-    margin-top: 12rem;
+    margin-top: 8rem;
 }
 
 .cardContent {
@@ -33,6 +33,13 @@
     display: flex;
     justify-content: flex-start;
     padding-left: 1rem;
+}
+
+.currencyField {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 1rem;
+    font-size: 14px;
 }
 
 .walletBox {
@@ -77,6 +84,12 @@
     background-color: #1bcd21;
 }
 
+.buttonDisabled {
+    background: #d9dbda;
+    border: 1px #d9dbda solid;
+    color: #a8aaa9
+}
+
 .currencyHeader {
     display: inline;
     margin-left: 1.5rem;
@@ -104,8 +117,12 @@
     width: 50%;
     padding-bottom: 8px;
     display: flex;
-    justify-content: space-around;
+    /* justify-content: space-between; */
     align-items: center;
+}
+
+.currencyBox:hover {
+    background: #d2eed8;
 }
 
 .currencyName {
@@ -116,9 +133,13 @@
     font-size: 12px;
 }
 
+.currencyNameGrid {
+    margin-left: 0.5rem
+}
+
 .flag {
     margin-top: 4px;
-    margin-right: 1rem;
+    margin-right: 1.3rem;
 }
 
 .iconGrid {
@@ -143,4 +164,8 @@
 
 .dialogTitle {
   padding-bottom: 0;
+}
+
+.pointer:hover {
+    pointer-events: none;
 }

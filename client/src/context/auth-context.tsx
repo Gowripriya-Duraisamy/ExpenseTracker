@@ -1,5 +1,6 @@
 import { CredentialResponse } from "@react-oauth/google";
-import { createContext, FC, useReducer } from "react";
+import jwtDecode from "jwt-decode";
+import { createContext, FC, useCallback, useEffect, useReducer } from "react";
 import axios from "../utils/axios";
 import {
   AuthState,
@@ -7,6 +8,7 @@ import {
   AuthContextValue,
   Action,
   AuthProviderProps,
+  User,
 } from "./types";
 
 const initialState: AuthState = {
@@ -39,17 +41,30 @@ const reducer = (state: AuthState, action: Action) => {
   }
 };
 
-export const AuthContextProvider: FC<AuthProviderProps> = ({children}) => {
+const isValidToken = (accessToken: string): boolean => {
+  if (!accessToken) {
+    return false;
+  }
+
+  const decoded: any = jwtDecode(accessToken);
+  const currentTime = Date.now() / 1000;
+
+  return decoded.exp > currentTime;
+};
+
+export const AuthContextProvider: FC<AuthProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const dispatchUser = (data: LoginAttributes) => {
     if (data.token) {
       localStorage.setItem("token", data.token);
+      localStorage.setItem("idToken", data.idToken);
+      const user = jwtDecode<User>(data.idToken);
       axios.defaults.headers.common.Authorization = `Bearer ${data.token}`;
       dispatch({
         type: "LOGIN",
         payload: {
-          user: data.user,
+          user,
         },
       });
     } else {
@@ -112,16 +127,39 @@ export const AuthContextProvider: FC<AuthProviderProps> = ({children}) => {
 
   const googleSignInHandler = async (data: CredentialResponse) => {
     try {
-      const response = await axios.post<LoginAttributes>("api/user/googleSignIn", data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.post<LoginAttributes>(
+        "api/user/googleSignIn",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       dispatchUser(response.data);
     } catch (error) {
       console.log("Sign in with google error", error);
     }
   };
+
+  const autoInitialise = useCallback(() => {
+    try {
+      const accessToken = localStorage.getItem("token");
+      const idToken = localStorage.getItem("idToken");
+      if (accessToken && idToken && isValidToken(accessToken)) {
+        dispatchUser({
+          token: accessToken,
+          idToken,
+        });
+      }
+    } catch (error) {
+      console.log("Auto Initialize Error", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    autoInitialise();
+  }, [autoInitialise]);
 
   const contextValue = {
     ...state,
@@ -133,7 +171,9 @@ export const AuthContextProvider: FC<AuthProviderProps> = ({children}) => {
 
   globalContext = contextValue;
 
-  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+  );
 };
 
 export default AuthContext;

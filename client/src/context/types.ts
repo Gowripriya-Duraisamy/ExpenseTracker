@@ -10,8 +10,8 @@ export interface User {
 
 export interface LoginAttributes {
   token: string;
-  message: string;
-  user: User;
+  idToken: string;
+  message?: string;
 }
 
 export interface TokenUser {

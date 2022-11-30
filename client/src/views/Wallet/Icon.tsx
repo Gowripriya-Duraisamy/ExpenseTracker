@@ -11,26 +11,31 @@ import {
   Typography,
 } from "@mui/material";
 import { Close, KeyboardArrowDown } from "@mui/icons-material";
-import { useState } from "react";
+import { FC, useState } from "react";
 
 import classes from "./wallet.module.css";
 import { ICONS } from "../../constants/icons";
 
-interface IconProps {
+export interface IconProps {
   id: number;
   image: string;
 }
 
-const Icon = () => {
+interface IconComponentProps {
+  selectedIcon: IconProps,
+  handleIconSelection: (value: IconProps) => void;
+}
+
+const Icon: FC<IconComponentProps> = ({selectedIcon, handleIconSelection}) => {
   const [isIconDialogOpen, setIconDialogOpen] = useState(false);
-  const [selectedIcon, setSelectedIcon] = useState<IconProps>(ICONS[0]);
+  
 
   const handleIconBoxClick = () => {
     setIconDialogOpen((prevState) => !prevState);
   };
 
-  const handleIconSelection = (value: IconProps) => {
-    setSelectedIcon(value);
+  const handleSelectedIcon = (value: IconProps) => {
+    handleIconSelection(value);
     handleIconBoxClick();
   };
 
@@ -66,7 +71,8 @@ const Icon = () => {
             {ICONS.map((icon) => {
               return (
                 <Avatar
-                  onClick={() => handleIconSelection(icon)}
+                key={icon.id}
+                  onClick={() => handleSelectedIcon(icon)}
                   className={classes.avatar}
                   src={icon.image}
                 />
