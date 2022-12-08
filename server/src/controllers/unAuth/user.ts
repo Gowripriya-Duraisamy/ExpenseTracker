@@ -4,11 +4,12 @@ import { OAuth2Client } from "google-auth-library";
 import { join } from "path";
 import { readFileSync } from "fs";
 
-import { RegisterAttributes } from "../../types/unAuth/user";
+import { RegisterAttributes, tokenPayload } from "../../types/unAuth/user";
 import User from "../../models/user";
-import { generateToken } from "../../utils/jwt";
+import { generateToken, verifyToken } from "../../utils/jwt";
 import { development } from "../../config";
 import SendMail from "../../utils/mail";
+import { JwtPayload } from "jsonwebtoken";
 
 const router = express.Router();
 const client = new OAuth2Client(process.env.CLIENT_ID);
@@ -27,14 +28,11 @@ router.post(
           {
             email: email,
           },
-          {
-            algorithm: "RS256",
-            expiresIn: "12h",
-            issuer: "Jove",
-          }
+          tokenPayload
         );
+        const idToken = generateToken( user.toJSON(), tokenPayload);
         return compare && user.password
-          ? res.status(200).json({ token: token, user: user })
+          ? res.status(200).json({ token: token, idToken })
           : res.status(500).json({ error: "Password doesnt match" });
       }
       return res.status(500).json({ error: "User doesnt exist." });
@@ -68,13 +66,10 @@ router.post(
         {
           email: email,
         },
-        {
-          algorithm: "RS256",
-          expiresIn: "12h",
-          issuer: "Jove",
-        }
+        tokenPayload
       );
-      res.status(200).json({ token: token, user: userData, message: "Registered User" });
+      const idToken = generateToken( userData.toJSON(), tokenPayload);
+      res.status(200).json({ token, idToken, message: "Registered User" });
     } catch (error) {
       res.status(500).json({ error });
     }
@@ -107,13 +102,13 @@ router.post("/googleSignIn", async (req: Request, res: Response) => {
           name: payload?.given_name,
           email: payload?.email,
         },
-        {
-          algorithm: "RS256",
-          expiresIn: "12h",
-          issuer: "Jove",
-        }
+        tokenPayload
       );
-      return res.status(200).json({ token, user: userData, message: "Logged In" });
+      const idToken = generateToken(
+        userData.toJSON(),
+        tokenPayload
+      );
+      return res.status(200).json({ token, idToken, message: "Logged In" });
     }
     return res.status(500).json({ message: "Email signin failed" });
   } catch (error) {
@@ -170,9 +165,29 @@ router.post(
   }
 );
 
-// router.post("/refreshToken", async (req: Request, res: Response) => {
-//   try {
-//   } catch (error) {}
-// });
+router.post(
+  "/refreshToken",
+  async (req: Request<any, any, { token: string }>, res: Response) => {
+    try {
+      const { token } = req.body;
+
+      const verifiedToken = verifyToken(token, {
+        issuer: "Jove",
+        algorithms: ["RS256"],
+      }) as JwtPayload;
+
+      const refreshToken = generateToken(
+        {
+          email: verifiedToken["email"],
+        },
+        tokenPayload
+      );
+
+      res.status(200).json({ refreshToken: refreshToken });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
+);
 
 export { router as UserController };

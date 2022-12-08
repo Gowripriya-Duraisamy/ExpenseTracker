@@ -21,7 +21,7 @@ import { MY_WALLET } from "../../constants";
 import clsx from "clsx";
 import { ICONS } from "../../constants/icons";
 import { useDispatch } from "../../store";
-import { saveWallet } from "../../slices/wallet";
+import { getWallet, saveWallet } from "../../slices/wallet";
 
 const Wallet = () => {
   const dispatch = useDispatch();
@@ -63,7 +63,8 @@ const Wallet = () => {
         isTotalExcluded,
         initialBalance,
         name: walletName
-      }))
+      }));
+      dispatch(getWallet());
   }
 
 

@@ -7,7 +7,7 @@ interface TokenPayload {
     name?: string
 }
 
-export const generateToken = (payload: TokenPayload, signOptions: jwt.SignOptions) => {
+export const generateToken = (payload: TokenPayload | object, signOptions: jwt.SignOptions) => {
     // utf-8 is used to fetch it as string content instead of bytes
     const privateKey = fs.readFileSync(join(__dirname, "..", "keys", "private.key"), 'utf-8');
     return jwt.sign(payload, privateKey, signOptions)

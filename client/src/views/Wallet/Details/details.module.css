@@ -1,0 +1,154 @@
+.mainGrid {
+    background-color: #dfdddd;
+    width: 100vw;
+    height: 100vh;
+    justify-content: space-around;
+    padding: 2rem;
+}
+
+.name {
+    background-color: #f3eded;
+    display: flex;
+    justify-content: flex-start;
+    padding: 8px;
+    border-radius: 2px;
+    font-size: 14px;
+    color: #818181
+}
+
+.divider {
+    border-bottom: 1px #e2e1e1 solid;
+}
+
+.walletBox {
+    margin-top: 1.5rem;
+}
+
+.detailGrid {
+    padding: 0.5rem;
+    background-color: white;
+    border-radius: 2px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.detailsGrid {
+    padding: 0.5rem;
+    background-color: white;
+    border-radius: 2px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.detailGrid:hover {
+    background-color: #edf9f0;
+    cursor: pointer;
+}
+
+.nameGrid {
+    justify-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    margin-left: 0.5rem;
+}
+
+.walletName {
+    font-weight: 600;
+    font-size: 14px;
+    padding-left: 0;
+}
+
+.walletBalance {
+    font-size: 12px;
+    padding-left: 4px;
+    color: #0000008a
+}
+
+.walletIcon {
+    pointer-events: none;
+}
+
+.detailHeader {
+    display: inline;
+    margin-left: 1.5rem;
+    font-weight: 400;
+    font-size: 1.3rem;
+}
+
+.headerGrid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.iconGrid {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.buttonGrid {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.delete {
+    color: #f65454;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.detailName {
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+.detailBalance {
+    font-size: 14px;
+}
+
+.detailIcon {
+    pointer-events: none;
+}
+
+.avatar {
+    background-color: #bc1ec1;
+}
+
+.balance{
+    color:#2db84c;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.balanceCard{
+    padding-top: 8px;
+    padding-bottom: 8px !important;
+}
+
+.balanceCard:hover {
+    background-color: #e6f8ea;
+}
+
+
+.checkBoxCard{
+    padding-top: 8px;
+    padding-bottom: 8px !important;
+    padding-left: 2.5rem;
+}
+
+.formGroup {
+    margin-top: 1rem;
+}
+
+.formHelper {
+    margin-left: 2rem;
+}
+
+.card {
+    margin-top: 1.5rem;
+}

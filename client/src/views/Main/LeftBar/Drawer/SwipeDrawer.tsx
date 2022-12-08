@@ -1,21 +1,29 @@
 import { Box, Divider, Drawer, IconButton } from "@mui/material";
 import { Menu, Person, AccountBalanceWallet } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import classes from "./drawer.module.css";
 import MenuItem from "./Menu";
 import ReusableIcon from "../../../../components/ReusableIcon";
 import SwipeTop from "./SwipeTop";
+import { useSelector, useDispatch } from "../../../../store";
+import { getWallet } from "../../../../slices/wallet";
 
 const SwipeDrawer = () => {
+  const dispatch = useDispatch();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const { wallets } = useSelector((state) => state.wallet);
   const navigate = useNavigate();
 
   const handleDrawer = () => {
     setDrawerOpen((prevState) => !prevState);
   };
 
+  useEffect(() => {
+    dispatch(getWallet());
+  }, [dispatch]);
+  
   return (
     <>
       <Box className={classes.box}>
@@ -36,7 +44,7 @@ const SwipeDrawer = () => {
             icon={<AccountBalanceWallet />}
             name={"My Wallets"}
             handleClick={() => {
-              navigate("/wallet")
+              navigate(!wallets.length ? "/expense/wallet" : "/expense/wallet/details")
             }}
           />
           <MenuItem

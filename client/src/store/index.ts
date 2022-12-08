@@ -1,8 +1,12 @@
 import {AnyAction, configureStore, ThunkAction} from "@reduxjs/toolkit";
 import {useSelector as selector, useDispatch as dispatch, TypedUseSelectorHook} from "react-redux";
 
+import {reducer as WalletReducer} from "../slices/wallet";
+
 export const store = configureStore({
-    reducer: {}
+    reducer: {
+        wallet: WalletReducer
+    }
 });
 
 export type RootState = ReturnType<typeof store.getState>;

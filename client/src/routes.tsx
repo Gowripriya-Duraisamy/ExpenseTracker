@@ -40,6 +40,11 @@ export const routes: RouteAttributes[] = [
     component: lazy(() => import("./views/Login")),
   },
   {
+    path: "/expense/wallet/details",
+    guard: AuthGuard,
+    component: lazy(() => import("./views/Wallet/Details"))
+  },
+  {
     path: "*",
     component: lazy(() => import("./views/Error/")),
   },
