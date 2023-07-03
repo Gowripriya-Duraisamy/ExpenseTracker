@@ -4,6 +4,8 @@ import { AuthContextProvider } from "./context/auth-context";
 import RenderRoutes, {routes} from "./routes";
 
 function App() {
+  console.log("test");
+  
   return (
     <div className="App">
       <AuthContextProvider>
