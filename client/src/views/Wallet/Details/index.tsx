@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "../../../store";
 import { getWallet, Wallet } from "../../../slices/wallet";
 import List from "./List";
 import ListItem from "./ListItem";
+import Header from "../../../components/CommonHeader";
+import { MY_WALLET } from "../../../constants";
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -21,8 +23,14 @@ const Details = () => {
   }, [dispatch]);
 
   return (
+    <>
+    <Header name={MY_WALLET} />
     <Grid container className={classes.mainGrid}>
-      <List walletList={wallets} handleWalletDetail={handleWalletDetail} />
+      <List
+        excludedList={wallets.filter((data: Wallet) => data.isTotalExcluded)}
+        includedList={wallets.filter((data: Wallet) => !data.isTotalExcluded)}
+        handleWalletDetail={handleWalletDetail}
+      />
       {selectedWallet && (
         <ListItem
           walletsLen={wallets.length}
@@ -31,6 +39,7 @@ const Details = () => {
         />
       )}
     </Grid>
+    </>
   );
 };
 

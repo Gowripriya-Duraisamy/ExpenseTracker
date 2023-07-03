@@ -48,7 +48,7 @@ router.delete("/:walletId", async (req: Request<{walletId: string}>, res: Respon
 router.put("/:walletId", async (req: Request<{walletId: string}, any, WalletAttributes>, res: Response) => {
     try {
         const walletId = req.params.walletId;
-        const wallet = await Wallet.findByIdAndUpdate(walletId, {...req.body});
+        const wallet = await Wallet.findByIdAndUpdate(walletId, {...req.body}, { new: true });
         return res.status(200).json({wallet: wallet});
     } catch (error) {
         return res.status(500).json("Error");

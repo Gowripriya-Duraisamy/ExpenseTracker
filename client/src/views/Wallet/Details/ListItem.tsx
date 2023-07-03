@@ -19,23 +19,20 @@ import { useNavigate } from "react-router-dom";
 import { ICONS } from "../../../constants/icons";
 import classes from "./details.module.css";
 import { useDispatch } from "../../../store";
-import {
-  deleteWallet,
-  editWallet,
-  Wallet,
-} from "../../../slices/wallet";
+import { deleteWallet, editWallet, Wallet } from "../../../slices/wallet";
 import useAuth from "../../../hooks/useAuth";
+import Balance from "./Balance";
 
 export interface ListItemProps {
   wallet: Wallet | null;
   handleWalletDetail: (wallet: Wallet | null) => void;
-  walletsLen: number
+  walletsLen: number;
 }
 
 const ListItem: FC<ListItemProps> = ({
   wallet,
   handleWalletDetail,
-  walletsLen
+  walletsLen,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -44,13 +41,15 @@ const ListItem: FC<ListItemProps> = ({
 
   const handleDeleteButton = () => {
     selectedWallet?._id && dispatch(deleteWallet(selectedWallet._id));
-    walletsLen === 1 ? navigate("/expense/wallet", { replace: true }) : setSelectedWallet(null);
+    walletsLen === 1
+      ? navigate("/expense/wallet", { replace: true })
+      : setSelectedWallet(null);
   };
 
   const handleExcludeCheckBox = (event: ChangeEvent<HTMLInputElement>) => {
-    setSelectedWallet(prevState => {
-      if(prevState) {
-        return {...prevState, isTotalExcluded: event.target.checked}
+    setSelectedWallet((prevState) => {
+      if (prevState) {
+        return { ...prevState, isTotalExcluded: event.target.checked };
       }
       return prevState;
     });
@@ -64,9 +63,9 @@ const ListItem: FC<ListItemProps> = ({
   };
 
   const handleArchiveCheckBox = (event: ChangeEvent<HTMLInputElement>) => {
-    setSelectedWallet(prevState => {
-      if(prevState) {
-        return {...prevState, isArchived: event.target.checked}
+    setSelectedWallet((prevState) => {
+      if (prevState) {
+        return { ...prevState, isArchived: event.target.checked };
       }
       return prevState;
     });
@@ -183,12 +182,11 @@ const ListItem: FC<ListItemProps> = ({
             </FormGroup>
           </CardContent>
           {!selectedWallet.isArchived && (
-            <>
-              <Divider orientation="horizontal"></Divider>
-              <CardContent className={classes.balanceCard}>
-                <Button className={classes.balance}>Adjust Balance</Button>
-              </CardContent>
-            </>
+            <Balance
+              initialBalance={selectedWallet.initialBalance}
+              selectedWallet={selectedWallet}
+              handleExcludeCheckBox={handleExcludeCheckBox}
+            />
           )}
         </Card>
       </Grid>

@@ -17,11 +17,53 @@
 .dateIcon {
     z-index: 1;
     position: absolute;
-    top: 10px;
+    top: 12px;
 }
 
 .calendarBox {
     padding: 0 14px;
     display: flex;
     justify-content: center;
+}
+
+.walletBalance {
+    font-size: 14px;
+    padding-left: 4px;
+    color: #000000e1;
+    font-weight: 600;
+}
+
+.walletIcon {
+    pointer-events: none;
+}
+
+.nameGrid {
+    justify-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    margin-left: 0.5rem;
+}
+
+.walletName {
+    font-weight: 400;
+    font-size: 14px;
+    padding-left: 0;
+    color: #000000a1;
+    /* display: inline; */
+}
+
+.detailGrid {
+    padding: 0 0.5rem;
+    background-color: white;
+    border-radius: 2px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 4rem;
+}
+
+.arrowIcon {
+    padding: 0;
+    color: #000000ba;
 }

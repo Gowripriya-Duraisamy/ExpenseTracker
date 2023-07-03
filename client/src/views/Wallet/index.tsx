@@ -78,7 +78,7 @@ const Wallet = () => {
           </Typography>
           <Divider className={classes.divider} />
           <Grid container>
-            <Icon selectedIcon={selectedIcon} handleIconSelection={handleIconSelection}/>
+            <Icon selectedIcon={selectedIcon} handleIconSelection={handleIconSelection} />
             <Grid item xs={8.5} className={classes.walletBox}>
               <label className={classes.label}>Wallet name</label>
               <TextField

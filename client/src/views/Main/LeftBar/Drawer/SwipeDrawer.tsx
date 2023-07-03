@@ -7,11 +7,9 @@ import classes from "./drawer.module.css";
 import MenuItem from "./Menu";
 import ReusableIcon from "../../../../components/ReusableIcon";
 import SwipeTop from "./SwipeTop";
-import { useSelector, useDispatch } from "../../../../store";
-import { getWallet } from "../../../../slices/wallet";
+import { useSelector } from "../../../../store";
 
 const SwipeDrawer = () => {
-  const dispatch = useDispatch();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { wallets } = useSelector((state) => state.wallet);
   const navigate = useNavigate();
@@ -20,9 +18,6 @@ const SwipeDrawer = () => {
     setDrawerOpen((prevState) => !prevState);
   };
 
-  useEffect(() => {
-    dispatch(getWallet());
-  }, [dispatch]);
   
   return (
     <>
