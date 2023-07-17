@@ -24,7 +24,7 @@ router.post("/add", async (req: Request<any, any, WalletAttributes>, res: Respon
 
 router.get("/", async (req: Request, res: Response) => {
     try {
-        const wallets = await Wallet.find({userId: req.userId})
+        const wallets = await Wallet.find({userId: new mongoose.Types.ObjectId(req.userId)})
         return res.status(200).json({ data: wallets})
     } catch (error) {
         return res.status(500).json("Error")
