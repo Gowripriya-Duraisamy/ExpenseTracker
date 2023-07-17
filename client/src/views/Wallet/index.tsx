@@ -12,6 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import {ChangeEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Currency, { CurrencyData } from "./Currency";
 import Icon, { IconProps } from "./Icon";
@@ -21,10 +22,11 @@ import { MY_WALLET } from "../../constants";
 import clsx from "clsx";
 import { ICONS } from "../../constants/icons";
 import { useDispatch } from "../../store";
-import { getWallet, saveWallet } from "../../slices/wallet";
+import { saveWallet } from "../../slices/wallet";
 
 const Wallet = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [selectedCurrency, setSelectedCurrency] = useState<CurrencyData>({
     name: "",
     code: "",
@@ -64,7 +66,7 @@ const Wallet = () => {
         initialBalance,
         name: walletName
       }));
-      dispatch(getWallet());
+      navigate("/expense/wallet/details")
   }
 
 
@@ -105,10 +107,12 @@ const Wallet = () => {
               <TextField
                 variant="standard"
                 className={classes.field}
-                value={initialBalance}
+                value={initialBalance > 0 ? initialBalance : ''}
                 type={"number"}
+                placeholder="0"
                 onChange={handleBalanceChange}
                 InputProps={{
+                  inputProps: { min: 0 },
                   disableUnderline: true,
                 }}
               />

@@ -22,6 +22,8 @@ import { useDispatch } from "../../../store";
 import { deleteWallet, editWallet, Wallet } from "../../../slices/wallet";
 import useAuth from "../../../hooks/useAuth";
 import Balance from "./Balance";
+import DeleteConfirmation from "../../../components/Confirmation";
+import { DELETE_TITLE, WALLET_DELETE_CONFIRMATION } from "../../../constants";
 
 export interface ListItemProps {
   wallet: Wallet | null;
@@ -98,9 +100,15 @@ const ListItem: FC<ListItemProps> = ({
                 </Typography>
               </Grid>
               <Grid className={classes.buttonGrid} item xs={6}>
-                <Button onClick={handleDeleteButton} className={classes.delete}>
-                  Delete
-                </Button>
+                <DeleteConfirmation
+                  handleSuccessAction={handleDeleteButton}
+                  className={classes.delete}
+                  name={"Delete"}
+                  success="Delete"
+                  failure="cancel"
+                  content={WALLET_DELETE_CONFIRMATION}
+                  title={DELETE_TITLE}
+                />
                 {!selectedWallet.isArchived && (
                   <Button className={classes.balance}>Edit</Button>
                 )}

@@ -48,6 +48,7 @@ const DetailList: FC<ListProps> = ({
               {listItem.name}
             </Typography>
             <Typography className={classes.walletBalance}>
+              {listItem.initialBalance >= 0 ? '+': '-'}
               {getCurrencyCode(listItem.currency)}{" "}
               {listItem.initialBalance.toFixed(2)}
             </Typography>

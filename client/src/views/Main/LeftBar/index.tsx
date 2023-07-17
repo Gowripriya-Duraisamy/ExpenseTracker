@@ -4,18 +4,21 @@ import ReusableIcon from "../../../components/ReusableIcon";
 
 import classes from "./leftbar.module.css";
 import SwipeDrawer from "./Drawer/SwipeDrawer";
+import { useLocation } from "react-router-dom";
+import { green } from "@mui/material/colors";
 
 const LeftBar = () => {
-  return (
+  const location = useLocation();
+   return (
     <Box>
       <Drawer variant="permanent" anchor="left">
           <Grid container direction={"column"}>
            <SwipeDrawer />
             <Box className={classes.box}>
               <IconButton>
-                <AccountBalanceWallet />
+                <AccountBalanceWallet style={location.pathname.includes("transactions") ? { color: green[500] } : {}} />
               </IconButton>
-              <Typography className={classes.iconName}  >Transactions</Typography>
+              <Typography className={location.pathname.includes("transactions") ? classes.iconActive :classes.iconName}  >Transactions</Typography>
             </Box>
             <Box className={classes.box}>
               <IconButton>
