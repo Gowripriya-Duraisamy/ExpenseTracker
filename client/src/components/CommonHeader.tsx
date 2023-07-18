@@ -9,15 +9,16 @@ import ElevationScroll from "./ElevationScroll";
 interface HeaderProps {
     name: string;
     disabled?: boolean;
+    handleArrowAction: () => void
 }
 
-const Header: FC<HeaderProps> = ({name}) => {
+const Header: FC<HeaderProps> = ({name, handleArrowAction}) => {
   return (
     <>
       <ElevationScroll>
         <AppBar className={classes.appBar}>
           <Box className={classes.header}>
-            <IconButton>
+            <IconButton onClick={handleArrowAction}>
               <ArrowBackIcon />
             </IconButton>
             <Typography className={classes.title}>{name}</Typography>

@@ -4,6 +4,7 @@ import {
   Card,
   CardContent,
   Checkbox,
+  Dialog,
   Divider,
   FormControlLabel,
   FormGroup,
@@ -23,7 +24,8 @@ import { deleteWallet, editWallet, Wallet } from "../../../slices/wallet";
 import useAuth from "../../../hooks/useAuth";
 import Balance from "./Balance";
 import DeleteConfirmation from "../../../components/Confirmation";
-import { DELETE_TITLE, WALLET_DELETE_CONFIRMATION } from "../../../constants";
+import { DELETE_TITLE, EDIT, WALLET_CREATE, WALLET_DELETE_CONFIRMATION, WALLET_EDIT } from "../../../constants";
+import WalletCard from "../walletCard";
 
 export interface ListItemProps {
   wallet: Wallet | null;
@@ -39,7 +41,16 @@ const ListItem: FC<ListItemProps> = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const [open, setOpen] = useState(false);
   const [selectedWallet, setSelectedWallet] = useState<Wallet | null>(wallet);
+  
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleEdit = (data: Wallet) => {
+
+  }
 
   const handleDeleteButton = () => {
     selectedWallet?._id && dispatch(deleteWallet(selectedWallet._id));
@@ -110,7 +121,18 @@ const ListItem: FC<ListItemProps> = ({
                   title={DELETE_TITLE}
                 />
                 {!selectedWallet.isArchived && (
-                  <Button className={classes.balance}>Edit</Button>
+                  <>
+                  <Button className={classes.balance} onClick={() => setOpen(true)}>Edit</Button>
+                  <Dialog open={open}>
+                    <WalletCard
+                      handleClose={handleClose}
+                      title={WALLET_EDIT}
+                      type={EDIT}
+                      data={selectedWallet}
+                      handleSave={handleEdit}
+                    />
+                  </Dialog>
+                  </>
                 )}
               </Grid>
             </Grid>

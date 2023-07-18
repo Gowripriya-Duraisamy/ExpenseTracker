@@ -1,149 +1,43 @@
-import {
-  Button,
-  Card,
-  CardContent,
-  Checkbox,
-  Divider,
-  FormControlLabel,
-  FormGroup,
-  FormHelperText,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
-import {ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Dialog } from "@mui/material";
 
-import Currency, { CurrencyData } from "./Currency";
-import Icon, { IconProps } from "./Icon";
-import classes from "./wallet.module.css";
 import Header from "../../components/CommonHeader";
-import { MY_WALLET } from "../../constants";
-import clsx from "clsx";
-import { ICONS } from "../../constants/icons";
+import { CREATE, MY_WALLET, WALLET_CREATE } from "../../constants";
+import WalletCard from "./walletCard";
 import { useDispatch } from "../../store";
-import { saveWallet } from "../../slices/wallet";
+import { saveWallet, Wallet } from "../../slices/wallet";
 
-const Wallet = () => {
-  const dispatch = useDispatch();
+const MyWallet = () => {
   const navigate = useNavigate();
-  const [selectedCurrency, setSelectedCurrency] = useState<CurrencyData>({
-    name: "",
-    code: "",
-  });
-  const [walletName, setWalletName] = useState("");
-  const [selectedIcon, setSelectedIcon] = useState<IconProps>(ICONS[0]);
-  const [initialBalance, setBalance] = useState(0);
-  const [isTotalExcluded, setIsTotalExcluded] = useState(false);
+  const dispatch = useDispatch();
+  const [open, setOpen] = useState(true);
 
-  const isButtonEnabled = !!walletName && !!selectedCurrency.name;
+  const handleArrowAction = () => {
+    navigate("/expense/transactions");
+  };
 
-  const handleWalletNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setWalletName(event.target.value);
-  }
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-  const handleCurrencySelection = (data: CurrencyData) => {
-    setSelectedCurrency(data)
-  }
-
-  const handleIconSelection = (data: IconProps) => {
-    setSelectedIcon(data)
-  }
-
-  const handleBalanceChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setBalance(+event.target.value)
-  }
-
-  const handleCheckbox = () => {
-    setIsTotalExcluded(prevState => !prevState);
-  }
-
-  const handleSave = () => {
-      dispatch(saveWallet({
-        currency: selectedCurrency.name,
-        imageId: selectedIcon.id,
-        isTotalExcluded,
-        initialBalance,
-        name: walletName
-      }));
-      navigate("/expense/wallet/details")
-  }
-
+  const handleSave = (data: Wallet) => {
+    dispatch(saveWallet(data));
+    handleClose();
+    navigate("/expense/wallet/details")
+}
 
   return (
     <>
-      <Header name={MY_WALLET} />
-      <Card className={classes.card}>
-        <CardContent className={classes.cardContent}>
-          <Typography className={classes.walletHeader}>
-            Add a wallet First!
-          </Typography>
-          <Divider className={classes.divider} />
-          <Grid container>
-            <Icon selectedIcon={selectedIcon} handleIconSelection={handleIconSelection} />
-            <Grid item xs={8.5} className={classes.walletBox}>
-              <label className={classes.label}>Wallet name</label>
-              <TextField
-                variant="standard"
-                className={classes.field}
-                onChange={handleWalletNameChange}
-                placeholder="Your wallet name?"
-                InputProps={{
-                  disableUnderline: true,
-                }}
-              />
-            </Grid>
-          </Grid>
-          <Grid container className={classes.containerGrid}>
-            <Grid className={classes.walletBox} item xs={7}>
-              <label className={classes.label}>Currency</label>
-              <Currency
-                selectedCurrency={selectedCurrency}
-                handleSelectedCurrency={handleCurrencySelection}
-              />
-            </Grid>
-            <Grid className={classes.walletBox} item xs={4.5}>
-              <label className={classes.label}>Initial Balance</label>
-              <TextField
-                variant="standard"
-                className={classes.field}
-                value={initialBalance > 0 ? initialBalance : ''}
-                type={"number"}
-                placeholder="0"
-                onChange={handleBalanceChange}
-                InputProps={{
-                  inputProps: { min: 0 },
-                  disableUnderline: true,
-                }}
-              />
-            </Grid>
-          </Grid>
-          <FormGroup className={classes.formGroup}>
-            <FormControlLabel
-              control={<Checkbox  onChange={handleCheckbox} value={isTotalExcluded} />}
-              label="Excluded from Total"
-            />
-            <FormHelperText className={classes.formHelper}>
-              Ignore this wallet and its balance in the "Total" mode
-            </FormHelperText>
-          </FormGroup>
-          <Grid className={classes.buttonGrid}>
-            <Button
-              disabled={!isButtonEnabled}
-              className={
-                !isButtonEnabled
-                  ? clsx(classes.button, classes.buttonDisabled)
-                  : classes.button
-              }
-              onClick={handleSave}
-            >
-              Save
-            </Button>
-          </Grid>
-        </CardContent>
-      </Card>
+      <Header
+        name={MY_WALLET}
+        handleArrowAction={handleArrowAction}
+      />
+      <Dialog open={open} >
+        <WalletCard handleClose={handleClose} title={WALLET_CREATE} type={CREATE} handleSave={handleSave} />
+      </Dialog>
     </>
   );
 };
 
-export default Wallet;
+export default MyWallet;

@@ -27,7 +27,7 @@ const Catagories = () => {
 
   return (
     <>
-      <Header name={CATEGORIES} />
+      <Header name={CATEGORIES} handleArrowAction={() => {}} />
       <Grid container className={classes.outerGrid}>
         <Grid item xs={5} className={classes.grid}>
           <Box className={classes.box}>

@@ -1,5 +1,6 @@
 import { Grid } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import classes from "./details.module.css";
 import { useDispatch, useSelector } from "../../../store";
@@ -11,6 +12,7 @@ import { MY_WALLET } from "../../../constants";
 
 const Details = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { wallets } = useSelector((state) => state.wallet);
   const [selectedWallet, setSelectedWallet] = useState<Wallet | null>(null);
 
@@ -22,9 +24,13 @@ const Details = () => {
     dispatch(getWallet());
   }, [dispatch]);
 
+  const handleArrowAction = () => {
+    navigate("/expense/transactions")
+  }
+
   return (
     <>
-    <Header name={MY_WALLET} />
+    <Header disabled={!wallets.length} name={MY_WALLET} handleArrowAction={handleArrowAction} />
     <Grid container className={classes.mainGrid}>
       <List
         excludedList={wallets.filter((data: Wallet) => data.isTotalExcluded)}
