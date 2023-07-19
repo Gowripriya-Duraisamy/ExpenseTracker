@@ -64,7 +64,7 @@
 .walletBalance {
     font-size: 12px;
     padding-left: 4px;
-    color: #0000008a
+    color: #0000008a;
 }
 
 .walletIcon {
@@ -100,6 +100,7 @@
     color: #f65454;
     font-weight: 600;
     font-size: 14px;
+    margin: 0 2.5rem;
 }
 
 .detailName {
@@ -123,6 +124,7 @@
     color:#2db84c;
     font-weight: 600;
     font-size: 14px;
+    margin-right: 1.5rem;
 }
 
 .balanceCard{

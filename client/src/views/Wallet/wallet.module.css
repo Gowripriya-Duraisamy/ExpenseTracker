@@ -79,6 +79,23 @@
     font-weight: bold;
 }
 
+.cancelButton {
+    background: #0000000f;
+    color: #00bc2a;
+    margin: 0 1rem;
+    padding: 6px;
+    border-radius: 8px;
+    display: flex;
+    width: 20%;
+    margin-bottom: 12px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.cancelButton:hover {
+    background-color: #ddeede;
+}
+
 .button:hover {
     background-color: #1bcd21;
 }

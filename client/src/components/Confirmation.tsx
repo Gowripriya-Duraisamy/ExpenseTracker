@@ -42,7 +42,6 @@ const Confirmation: FC<ConfirmationProps> = ({
   return (
     <>
       <Button
-        variant="outlined"
         className={className}
         onClick={handleClickOpen}
       >

@@ -19,7 +19,8 @@ import classes from "./wallet.module.css";
 import clsx from "clsx";
 import { ICONS } from "../../constants/icons";
 import { Wallet } from "../../slices/wallet";
-import { EDIT } from "../../constants";
+import { CREATE, EDIT } from "../../constants";
+import { CURRENCIES } from "../../constants/currencies";
 
 export interface WalletCardProps {
   handleClose: () => void;
@@ -32,34 +33,40 @@ export interface WalletCardProps {
 const WalletCard : FC<WalletCardProps> = ({handleSave, title, data, handleClose, type}) => {
   const [selectedCurrency, setSelectedCurrency] = useState<CurrencyData>({
     name: data?.currency || "",
-    code: "",
+    code: CURRENCIES.find((e) => e.name === data?.currency)?.code || "",
   });
   
   const [walletName, setWalletName] = useState(data?.name || "");
   const [selectedIcon, setSelectedIcon] = useState<IconProps>(data?.imageId ? ICONS[data.imageId - 1] :ICONS[0]);
   const [initialBalance, setBalance] = useState(data?.initialBalance || 0);
   const [isTotalExcluded, setIsTotalExcluded] = useState(data?.isTotalExcluded || false);
-
-  const isButtonEnabled = !!walletName && !!selectedCurrency.name;
+  const [isEdited, setIsEdited] = useState(false);
+  const isButtonEnabled = (type === CREATE && !!walletName && !!selectedCurrency.name) || 
+                            (type === EDIT && isEdited);
 
   const handleWalletNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setIsEdited(true);
     setWalletName(event.target.value);
   }
 
   const handleCurrencySelection = (data: CurrencyData) => {
-    setSelectedCurrency(data)
+    setSelectedCurrency(data);
+    setIsEdited(true)
   }
 
   const handleIconSelection = (data: IconProps) => {
-    setSelectedIcon(data)
+    setSelectedIcon(data);
+    setIsEdited(true);
   }
 
   const handleBalanceChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setBalance(+event.target.value)
+    setBalance(+event.target.value);
+    setIsEdited(true);
   }
 
   const handleCheckbox = () => {
     setIsTotalExcluded(prevState => !prevState);
+    setIsEdited(true);
   }
 
   const handleButtonSave = () => {
@@ -131,11 +138,7 @@ const WalletCard : FC<WalletCardProps> = ({handleSave, title, data, handleClose,
           </FormGroup>
           <Grid className={classes.buttonGrid}>
           { type === EDIT && <Button
-              className={
-                !isButtonEnabled
-                  ? clsx(classes.button, classes.buttonDisabled)
-                  : classes.button
-              }
+              className={classes.cancelButton}
               onClick={handleClose}
             >
               Cancel

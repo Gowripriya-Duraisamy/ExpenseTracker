@@ -49,7 +49,8 @@ const ListItem: FC<ListItemProps> = ({
   };
 
   const handleEdit = (data: Wallet) => {
-
+    selectedWallet?._id && dispatch(editWallet(selectedWallet?._id , data));
+    handleClose();
   }
 
   const handleDeleteButton = () => {
