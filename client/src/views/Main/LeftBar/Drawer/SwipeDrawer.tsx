@@ -51,7 +51,7 @@ const SwipeDrawer = () => {
             }
             name={"Categories"}
             handleClick={() => {
-              navigate("/categories")
+              navigate("/expense/categories")
             }}
           />
         </Box>

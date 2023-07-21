@@ -9,3 +9,7 @@ export const WALLET_CREATE = "Add a wallet First!";
 export const WALLET_EDIT = "Edit Wallet";
 export const EDIT = "edit";
 export const CREATE = "create";
+export const INCLUDED_WALLET = "Included in total";
+export const EXCLUDED_WALLET = "Excluded in total";
+export const SELECT_WALLET = "Select Wallet";
+export const TOTAL = "Total"

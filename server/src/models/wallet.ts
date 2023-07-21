@@ -7,7 +7,7 @@ export interface Wallet {
     initialBalance: number;
     isTotalExcluded: boolean;
     isArchived: boolean;
-    userId: Schema.Types.ObjectId
+    userId: Schema.Types.ObjectId;
 }
 
 const WalletSchema = new Schema<Wallet>({

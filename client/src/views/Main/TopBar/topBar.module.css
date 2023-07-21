@@ -60,10 +60,38 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-left: 4rem;
+    margin-left: 6rem;
+}
+
+.listGrid {
+    padding: 0 0.5rem;
+    background-color: white;
+    border-radius: 2px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .arrowIcon {
     padding: 0;
     color: #000000ba;
+}
+
+.walletDropdown{
+    display: flex;
+    padding: 8px 1rem;
+}
+
+.popover {
+    width: 300px;
+}
+
+.header {
+    margin: 10px 1rem;
+    font-size: 12px;
+}
+
+.selectHeader {
+    display: flex;
+    justify-content: center;
 }

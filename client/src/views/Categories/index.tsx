@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Card,
@@ -8,7 +10,6 @@ import {
   Typography,
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
-import { useState } from "react";
 
 import { Categories as CategoryList } from "../../constants/categories";
 import SubCategory, { SubCategoryList } from "./SubCategoryList";
@@ -17,7 +18,9 @@ import Header from "../../components/CommonHeader";
 import ReusableIcon from "../../components/ReusableIcon";
 import { CATEGORIES } from "../../constants";
 
+
 const Catagories = () => {
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] =
     useState<SubCategoryList | null>();
 
@@ -25,9 +28,13 @@ const Catagories = () => {
     setSelectedCategory(category);
   };
 
+  const handleArrowAction = () => {
+    navigate("/expense/transactions");
+  };
+
   return (
     <>
-      <Header name={CATEGORIES} handleArrowAction={() => {}} />
+      <Header name={CATEGORIES} handleArrowAction={handleArrowAction} />
       <Grid container className={classes.outerGrid}>
         <Grid item xs={5} className={classes.grid}>
           <Box className={classes.box}>
@@ -66,7 +73,7 @@ const Catagories = () => {
                   </Grid>
                   <Grid item xs={4}>
                     <Typography className={classes.categoryDetailName}>{selectedCategory.name}</Typography>
-                    {/* <Typography>PersonName</Typography> */}
+                    <Typography className={classes.name}>PersonName</Typography>
                     <Typography className={classes.categoryType}>{selectedCategory.type.toUpperCase()}</Typography>
                   </Grid>
                 </Grid>

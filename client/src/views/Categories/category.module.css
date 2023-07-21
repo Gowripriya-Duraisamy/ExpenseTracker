@@ -79,3 +79,8 @@
 .listGrid {
     padding: 1.5rem;
 }
+
+.name {
+    display: flex;
+    margin-left: 8px;
+}

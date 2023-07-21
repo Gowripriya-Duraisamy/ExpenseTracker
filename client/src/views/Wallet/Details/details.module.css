@@ -200,6 +200,22 @@
     background-color: #1bcd21;
 }
 
+.deleteButton {
+    background: #f25a5a;
+    padding: 6px;
+    border: 1px #fb3c1ed1 solid;
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    width: 25%;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.deleteButton:hover {
+    background-color: #e6331f;
+}
+
 .buttonDisabled {
     background: #d9dbda;
     border: 1px #d9dbda solid;

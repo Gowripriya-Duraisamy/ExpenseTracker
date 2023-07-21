@@ -25,6 +25,11 @@ export const routes: RouteAttributes[] = [
     layout: MainLayout,
   },
   {
+    path: "/expense/categories",
+    guard: AuthGuard,
+    layout: lazy(() => import("./views/Categories")),
+  },
+  {
     path: "/expense/wallet",
     guard: AuthGuard,
     component: lazy(() => import("./views/Wallet"))

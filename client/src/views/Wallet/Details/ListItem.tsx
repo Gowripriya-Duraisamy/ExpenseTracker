@@ -24,7 +24,7 @@ import { deleteWallet, editWallet, Wallet } from "../../../slices/wallet";
 import useAuth from "../../../hooks/useAuth";
 import Balance from "./Balance";
 import DeleteConfirmation from "../../../components/Confirmation";
-import { DELETE_TITLE, EDIT, WALLET_CREATE, WALLET_DELETE_CONFIRMATION, WALLET_EDIT } from "../../../constants";
+import { DELETE_TITLE, EDIT, WALLET_DELETE_CONFIRMATION, WALLET_EDIT } from "../../../constants";
 import WalletCard from "../walletCard";
 
 export interface ListItemProps {
@@ -120,6 +120,8 @@ const ListItem: FC<ListItemProps> = ({
                   failure="cancel"
                   content={WALLET_DELETE_CONFIRMATION}
                   title={DELETE_TITLE}
+                  successCN={classes.deleteButton}
+                  failureCN={classes.cancelButton}
                 />
                 {!selectedWallet.isArchived && (
                   <>

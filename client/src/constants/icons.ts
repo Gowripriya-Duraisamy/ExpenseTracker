@@ -31,4 +31,9 @@ export const ICONS = [{
 }, {
     id: 11,
     image: "/static/icons/icon11.png"
-},]
+}]
+
+export const ICON = [{
+    id: 1,
+    image: "/static/icons/global.png"
+}]
