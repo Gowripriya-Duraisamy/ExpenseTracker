@@ -16,11 +16,13 @@ import SubCategory, { SubCategoryList } from "./SubCategoryList";
 import classes from "./category.module.css";
 import Header from "../../components/CommonHeader";
 import ReusableIcon from "../../components/ReusableIcon";
-import { CATEGORIES } from "../../constants";
+import { CATEGORIES, TOTAL } from "../../constants";
+import { useSelector } from "../../store";
 
 
 const Catagories = () => {
   const navigate = useNavigate();
+  const {selectedWallet, wallets} = useSelector(state => state.wallet)
   const [selectedCategory, setSelectedCategory] =
     useState<SubCategoryList | null>();
 
@@ -36,7 +38,7 @@ const Catagories = () => {
     <>
       <Header name={CATEGORIES} handleArrowAction={handleArrowAction} />
       <Grid container className={classes.outerGrid}>
-        <Grid item xs={5} className={classes.grid}>
+        <Grid item xs={5} className={classes.grid} >
           <Box className={classes.box}>
             {CategoryList.map((list, index) => {
               return (
@@ -51,7 +53,7 @@ const Catagories = () => {
           </Box>
         </Grid>
         {selectedCategory && (
-          <Grid className={classes.detailGrid} item xs={6}>
+          <Grid className={classes.detailGrid} item xs={6.5}>
             <Card>
               <CardContent>
                 <Box className={classes.detailsBox}>
@@ -73,7 +75,7 @@ const Catagories = () => {
                   </Grid>
                   <Grid item xs={4}>
                     <Typography className={classes.categoryDetailName}>{selectedCategory.name}</Typography>
-                    <Typography className={classes.name}>PersonName</Typography>
+                    <Typography className={classes.name}>{selectedWallet?.name === TOTAL ? wallets[0].name : selectedWallet?.name }</Typography>
                     <Typography className={classes.categoryType}>{selectedCategory.type.toUpperCase()}</Typography>
                   </Grid>
                 </Grid>

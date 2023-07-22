@@ -12,7 +12,7 @@ export interface SubCategoryList {
 
 interface SubCategoryListProps {
   data: SubCategoryList[];
-  handleSelectedCategory: (category: SubCategoryList) => void
+  handleSelectedCategory: (category: SubCategoryList) => void;
 }
 
 const SubCategory: FC<SubCategoryListProps> = ({ data, handleSelectedCategory }) => {

@@ -55,7 +55,6 @@
 
 .detailGrid {
     padding: 0 0.5rem;
-    background-color: white;
     border-radius: 2px;
     display: flex;
     justify-content: flex-start;
@@ -65,7 +64,6 @@
 
 .listGrid {
     padding: 0 0.5rem;
-    background-color: white;
     border-radius: 2px;
     display: flex;
     justify-content: flex-start;
@@ -80,6 +78,10 @@
 .walletDropdown{
     display: flex;
     padding: 8px 1rem;
+}
+
+.walletDropdown:hover {
+    background-color: #d2eed8;
 }
 
 .popover {

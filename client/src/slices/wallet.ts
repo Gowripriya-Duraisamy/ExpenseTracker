@@ -14,17 +14,22 @@ export interface Wallet {
 }
 
 export interface WalletState {
-  wallets: Wallet[]
+  wallets: Wallet[];
+  selectedWallet : Wallet | null;
 }
 
 const initialState: WalletState = {
- wallets: []
+ wallets: [],
+ selectedWallet: null
 }
 
 export const slice = createSlice({
     name: 'wallet',
     initialState: initialState,
     reducers: {
+      setSelectedWallet(state: WalletState, action: PayloadAction<Wallet>) {
+        state.selectedWallet = action.payload;
+      },
       getWallet(state: WalletState, action: PayloadAction<Wallet[]>) {
         state.wallets = action.payload
       },
@@ -103,6 +108,14 @@ export const editWallet = (walletId: string, data: Wallet): AppThunk => async (d
           }
         );
         dispatch(slice.actions.editWallet(response.data.wallet));
+  } catch (error) {
+      console.log("error", error)
+  }
+}
+
+export const setSelectedWallet = (wallet: Wallet): AppThunk => async (dispatch) => {
+  try {
+        dispatch(slice.actions.setSelectedWallet(wallet));
   } catch (error) {
       console.log("error", error)
   }
