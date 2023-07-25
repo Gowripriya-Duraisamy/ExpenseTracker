@@ -78,3 +78,17 @@
     margin:auto;
     margin-right: 0;
 }
+
+.badgeLeft {
+    position: absolute;
+    left: 98px;
+    top: 80px;
+    z-index: -2;
+}
+
+.badgeRight {
+    position: absolute;
+    left: 228px;
+    top: 80px;
+    z-index: -2;
+}

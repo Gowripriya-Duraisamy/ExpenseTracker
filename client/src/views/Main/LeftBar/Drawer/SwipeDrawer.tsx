@@ -1,6 +1,6 @@
-import { Box, Divider, Drawer, IconButton } from "@mui/material";
+import { Box, Divider, Dialog, Drawer, IconButton } from "@mui/material";
 import { Menu, Person, AccountBalanceWallet } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import classes from "./drawer.module.css";
@@ -8,9 +8,11 @@ import MenuItem from "./Menu";
 import ReusableIcon from "../../../../components/ReusableIcon";
 import SwipeTop from "./SwipeTop";
 import { useSelector } from "../../../../store";
+import MyAccount from "./MyAccount";
 
 const SwipeDrawer = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [accountDialog, setAccountDialog] = useState(false);
   const { wallets } = useSelector((state) => state.wallet);
   const navigate = useNavigate();
 
@@ -18,7 +20,15 @@ const SwipeDrawer = () => {
     setDrawerOpen((prevState) => !prevState);
   };
 
-  
+  const handleMyAccountClick = () => {
+    handleDrawer();
+    setAccountDialog(true);
+  };
+
+  const handleDialogClose = () => {
+    setAccountDialog(false);
+  }
+
   return (
     <>
       <Box className={classes.box}>
@@ -33,13 +43,15 @@ const SwipeDrawer = () => {
           <MenuItem
             icon={<Person />}
             name={"My Account"}
-            handleClick={() => {}}
+            handleClick={handleMyAccountClick}
           />
           <MenuItem
             icon={<AccountBalanceWallet />}
             name={"My Wallets"}
             handleClick={() => {
-              navigate(!wallets.length ? "/expense/wallet" : "/expense/wallet/details")
+              navigate(
+                !wallets.length ? "/expense/wallet" : "/expense/wallet/details"
+              );
             }}
           />
           <MenuItem
@@ -51,11 +63,14 @@ const SwipeDrawer = () => {
             }
             name={"Categories"}
             handleClick={() => {
-              navigate("/expense/categories")
+              navigate("/expense/categories");
             }}
           />
         </Box>
       </Drawer>
+      <Dialog open={accountDialog} fullWidth maxWidth="sm">
+        <MyAccount handleClose={handleDialogClose} />
+      </Dialog>
     </>
   );
 };
