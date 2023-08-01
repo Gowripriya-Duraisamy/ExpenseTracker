@@ -1,3 +1,106 @@
-.close {
-    
+.headerGrid{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+}
+
+.firstHeader {
+    display: flex;
+    align-content: center;
+}
+
+.headerName {
+    padding: 16px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.signout{
+    font-size: 14px;
+    color: #2db84c;
+    padding: 8px 24px;
+    font-weight: 600;
+}
+
+.close{
+    font-size: 28px;
+}
+
+.close:hover {
+    color: black;
+}
+
+.badge {
+    background-color: #a3a3a3;
+    border: 1px #b3b3b3 solid;
+    width: 18%;
+    margin: 0 auto;
+    position: absolute;
+    z-index: 1;
+    top: 9.5rem;
+    left: 7.3rem;
+}
+
+.badgeName {
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-weight: 400;
+    font-size: 11px;
+    text-transform: uppercase;
+    padding: 1px;
+}
+
+.badgeLeft {
+    position: absolute;
+    left: 104px;
+    top: 144px;
+}
+
+.badgeRight {
+    position: absolute;
+    left: 216px;
+    top: 144px;
+}
+
+.badgeGrid{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    padding: 16px;
+}
+
+.avatar {
+    background-color: #bc1ec1;
+    margin: 1rem auto;
+    margin-bottom: 0;
+    padding: 16px;
+    font-size: 2rem;
+    font-weight: 550;
+    margin-left: 30px;
+    margin-top: 0;
+}
+
+.mail {
+    margin: 1rem auto;
+    font-weight: 100;
+    font-size: 12px;
+    color: #c4c4c4;
+    margin-top: 0;
+}
+
+.detailGrid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: flex-start;
+}
+
+.username {
+    margin: 1rem auto;
+    font-weight: 400;
+    margin-bottom: 0;
+    font-size: 1rem;
 }
