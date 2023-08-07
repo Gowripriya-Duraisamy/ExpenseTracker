@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import classes from "./drawer.module.css";
 import MenuItem from "./Menu";
 import ReusableIcon from "../../../../components/ReusableIcon";
-import SwipeTop from "./SwipeTop";
+import AccountInfo from "./AccountInfo";
 import { useSelector } from "../../../../store";
 import MyAccount from "./MyAccount";
 
@@ -37,7 +37,7 @@ const SwipeDrawer = () => {
         </IconButton>
       </Box>
       <Drawer open={drawerOpen} onClose={handleDrawer}>
-        <SwipeTop />
+        <AccountInfo />
         <Divider orientation="horizontal" />
         <Box>
           <MenuItem
@@ -68,7 +68,7 @@ const SwipeDrawer = () => {
           />
         </Box>
       </Drawer>
-      <Dialog open={accountDialog} fullWidth maxWidth="sm">
+      <Dialog open={accountDialog} onClose={handleDialogClose} fullWidth maxWidth="sm">
         <MyAccount handleClose={handleDialogClose} />
       </Dialog>
     </>

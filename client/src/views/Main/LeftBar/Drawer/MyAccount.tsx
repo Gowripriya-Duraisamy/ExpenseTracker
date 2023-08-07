@@ -1,4 +1,6 @@
 import {
+  Button,
+  Dialog,
   DialogTitle,
   Divider,
   Grid,
@@ -6,16 +8,30 @@ import {
   Typography,
 } from "@mui/material";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { FC } from "react";
+import { FC, useState } from "react";
 
-import classes from "./account.module.css";
+import classes from "./myaccount.module.css";
 import UserIcon from "./userIcon";
+import Confirmation from "./Confirmation";
+import useAuth from "../../../../hooks/useAuth";
 
 export interface MyAccountProps {
   handleClose: () => void;
 }
 
 const MyAccount: FC<MyAccountProps> = ({ handleClose }) => {
+  const { user } = useAuth();
+  const email = user?.email.split('@')[0] || '';
+  const [isDialogOpen, setDialogOpen] = useState(false);
+
+  const handleDialagOpen = () => {
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
   return (
     <>
       <DialogTitle>
@@ -37,9 +53,9 @@ const MyAccount: FC<MyAccountProps> = ({ handleClose }) => {
 
         <Divider />
         <Grid container className={classes.badgeGrid}>
-          <Grid item xs={2}>
+          <Grid item xs={4} className={classes.avatarGrid}>
             <UserIcon
-            avatar={classes.avatar}
+              avatar={classes.avatar}
               badgeLeft={classes.badgeLeft}
               badgeRight={classes.badgeRight}
               badge={classes.badge}
@@ -48,12 +64,28 @@ const MyAccount: FC<MyAccountProps> = ({ handleClose }) => {
           </Grid>
           <Grid item xs={7} className={classes.detailGrid}>
             <Typography className={classes.username}>
-              Gowripriyaa0707
+            {email?.charAt(0).toUpperCase() + email?.slice(1)}
             </Typography>
             <Typography className={classes.mail}>
-              gowripriyaa0707@gmail.com
+            {user?.email}
             </Typography>
           </Grid>
+        </Grid>
+        <Grid display={"flex"} justifyContent={"flex-end"}>
+          <Button
+            className={classes.deleteAccount}
+            onClick={handleDialagOpen}
+          >
+            Delete Account
+          </Button>
+          <Dialog
+            open={isDialogOpen}
+            onClose={handleDialogClose}
+            fullWidth
+            maxWidth="xs"
+          >
+            <Confirmation onClose={handleDialogClose} />
+          </Dialog>
         </Grid>
       </DialogTitle>
     </>

@@ -1,5 +1,6 @@
 import { Avatar, Box, Typography } from "@mui/material";
 import { FC } from "react";
+import useAuth from "../../../../hooks/useAuth";
 
 export interface  UserIconProps {
     badgeLeft: string;
@@ -10,9 +11,10 @@ export interface  UserIconProps {
 }
 
 const UserIcon: FC<UserIconProps> = ({avatar, badgeLeft, badgeRight, badge, badgeName}) => {
+  const {user} = useAuth();
   return (
     <>
-      <Avatar className={avatar}>G</Avatar>
+      <Avatar className={avatar}>{user?.email.charAt(0).toUpperCase()}</Avatar>
       <img
         src="/static/icons/svg/badge-left.svg"
         alt="badge-left"
