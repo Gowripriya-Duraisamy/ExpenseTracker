@@ -116,3 +116,44 @@
     background: none;
     text-decoration: underline;
 }
+
+.title{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.statement {
+    font-weight: bolder;
+    font-size: 14px;
+}
+
+.field {
+    margin: 8px;
+    margin-left: 0;
+}
+
+.cancel {
+    color: #f65454;
+    font-weight: 600;
+    font-size: 14px;
+    margin: 0 1rem;
+}
+
+.continue{
+    color:#2db84c;
+    font-weight: 600;
+    font-size: 14px;
+    margin-right: 1.5rem;
+}
+
+.deleteAccount {
+    text-decoration: underline;
+    color: #00000073;
+    font-size: 16px;
+    text-transform: none;
+}
+
+.deleteAccount:hover {
+    background: none;
+    text-decoration: underline;
+}

@@ -68,9 +68,7 @@ const SwipeDrawer = () => {
           />
         </Box>
       </Drawer>
-      <Dialog open={accountDialog} onClose={handleDialogClose} fullWidth maxWidth="sm">
-        <MyAccount handleClose={handleDialogClose} />
-      </Dialog>
+      <MyAccount handleClose={handleDialogClose}  accountDialog={accountDialog} />
     </>
   );
 };
