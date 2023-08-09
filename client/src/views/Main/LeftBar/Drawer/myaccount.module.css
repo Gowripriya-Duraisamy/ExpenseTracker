@@ -1,3 +1,6 @@
+.title {
+    padding-bottom: 0;
+}
 .headerGrid{
     display: flex;
     justify-content: space-between;
@@ -67,7 +70,7 @@
 .badgeGrid{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     align-content: center;
     padding: 16px;
 }
@@ -79,7 +82,7 @@
     padding: 12px;
     font-size: 2rem;
     font-weight: 550;
-    margin-left: 76px;
+    margin-left: 124px;
     margin-top: 6px;
 }
 
@@ -88,14 +91,10 @@
     font-size: 12px;
     color: #c4c4c4;
     margin-top: 0;
-    margin-left: 4.3rem;
 }
 
 .detailGrid {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+    margin-left: 1rem;
 }
 
 .username {

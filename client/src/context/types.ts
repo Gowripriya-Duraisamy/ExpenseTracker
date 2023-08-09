@@ -25,9 +25,9 @@ export interface AuthState {
 }
 
 export type LoginAction = {
-  type: "LOGIN";
+  type: "LOGIN" | "LOGOUT";
   payload: {
-    user: User;
+    user: User | null;
   };
 };
 
@@ -38,6 +38,7 @@ export interface AuthContextValue extends AuthState {
   googleSignIn: (data: CredentialResponse) => Promise<void>;
   register: (email: string, password: string) => Promise<void>;
   refreshToken: () => Promise<string>;
+  logout: () => void;
 }
 
 export interface AuthProviderProps {

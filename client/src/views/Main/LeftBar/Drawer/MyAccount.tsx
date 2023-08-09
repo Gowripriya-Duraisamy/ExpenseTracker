@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -31,7 +32,7 @@ export interface MyAccountProps {
 }
 
 const MyAccount: FC<MyAccountProps> = ({ handleClose, accountDialog }) => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const email = user?.email.split("@")[0] || "";
   const [fieldValue, SetFieldValue] = useState("");
 
@@ -50,6 +51,10 @@ const MyAccount: FC<MyAccountProps> = ({ handleClose, accountDialog }) => {
     setDialogOpen(false);
   };
 
+  const handleSignOut = () => {
+    logout();
+  }
+
   return (
     <>
       <Dialog
@@ -58,7 +63,7 @@ const MyAccount: FC<MyAccountProps> = ({ handleClose, accountDialog }) => {
         fullWidth
         maxWidth="sm"
       >
-        <DialogTitle>
+        <DialogTitle className={classes.title}>
           <Grid container className={classes.headerGrid}>
             <Grid item className={classes.firstHeader}>
               <IconButton>
@@ -71,13 +76,15 @@ const MyAccount: FC<MyAccountProps> = ({ handleClose, accountDialog }) => {
               <Typography className={classes.headerName}>My Account</Typography>
             </Grid>
             <Grid item>
-              <Typography className={classes.signout}>SIGN OUT</Typography>
+              <Box onClick={handleSignOut}>
+              <Typography className={classes.signout} >SIGN OUT</Typography>
+              </Box>
             </Grid>
           </Grid>
-
+          </DialogTitle>
           <Divider />
           <Grid container className={classes.badgeGrid}>
-            <Grid item xs={4} className={classes.avatarGrid}>
+            <Grid item xs={5}>
               <UserIcon
                 avatar={classes.avatar}
                 badgeLeft={classes.badgeLeft}
@@ -86,15 +93,14 @@ const MyAccount: FC<MyAccountProps> = ({ handleClose, accountDialog }) => {
                 badgeName={classes.badgeName}
               />
             </Grid>
-            <Grid item xs={7} className={classes.detailGrid}>
-              <Typography className={classes.username}>
+            <Grid className={classes.detailGrid}>
+            <Typography className={classes.username}>
                 {email?.charAt(0).toUpperCase() + email?.slice(1)}
               </Typography>
               <Typography className={classes.mail}>{user?.email}</Typography>
             </Grid>
           </Grid>
           <Grid display={"flex"} justifyContent={"flex-end"}>
-            {/* <Confirmation onClose={handleClose} /> */}
             <Button
               className={classes.deleteAccount}
               onClick={handleDialagOpen}
@@ -102,7 +108,6 @@ const MyAccount: FC<MyAccountProps> = ({ handleClose, accountDialog }) => {
               Delete Account
             </Button>
           </Grid>
-        </DialogTitle>
       </Dialog>
       <Dialog
         open={isDialogOpen}

@@ -22,12 +22,16 @@ const AuthContext = createContext<AuthContextValue>({
   login: () => Promise.resolve(),
   register: () => Promise.resolve(),
   refreshToken: () => Promise.resolve(""),
+  logout: () => {},
 });
 
 export let globalContext: AuthContextValue;
 
 const reducer = (state: AuthState, action: Action) => {
   switch (action.type) {
+    case "LOGOUT" : {
+      return { user: null, isAuthenticated: false}
+    }
     case "LOGIN": {
       const { user } = action.payload;
       return {
@@ -142,6 +146,17 @@ export const AuthContextProvider: FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const logoutHandler = () => {
+    localStorage.removeItem("idToken");
+    localStorage.removeItem("token");
+    dispatch({
+      type: "LOGOUT",
+      payload: {
+        user: null
+      },
+    });
+  }
+
   const autoInitialise = useCallback(() => {
     try {
       const accessToken = localStorage.getItem("token");
@@ -167,6 +182,7 @@ export const AuthContextProvider: FC<AuthProviderProps> = ({ children }) => {
     register: registerHandler,
     refreshToken: refreshTokenHandler,
     googleSignIn: googleSignInHandler,
+    logout: logoutHandler
   };
 
   globalContext = contextValue;
