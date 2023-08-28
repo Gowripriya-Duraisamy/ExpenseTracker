@@ -2,13 +2,10 @@ import {
   Box,
   Button,
   Dialog,
-  DialogActions,
-  DialogContent,
   DialogTitle,
   Divider,
   Grid,
   IconButton,
-  TextField,
   Typography,
 } from "@mui/material";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
@@ -17,14 +14,8 @@ import { ChangeEvent, FC, useState } from "react";
 import classes from "./myaccount.module.css";
 import UserIcon from "./userIcon";
 import useAuth from "../../../../hooks/useAuth";
-import {
-  CONFIRMATION,
-  DELETE_ACCOUNT_CONFIRMATION_CONTENT,
-  DELETE_BOLD_STATEMENT,
-  DELETE_ACCOUNT,
-  CANCEL,
-  CONTINUE,
-} from "../../../../constants";
+import Confirmation from "./Confirmation";
+import DeleteAccount from "./DeleteAccount";
 
 export interface MyAccountProps {
   handleClose: () => void;
@@ -41,6 +32,7 @@ const MyAccount: FC<MyAccountProps> = ({ handleClose, accountDialog }) => {
   };
 
   const [isDialogOpen, setDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   const handleDialagOpen = () => {
     setDialogOpen(true);
@@ -49,6 +41,15 @@ const MyAccount: FC<MyAccountProps> = ({ handleClose, accountDialog }) => {
 
   const handleDialogClose = () => {
     setDialogOpen(false);
+  };
+
+  const handleDeleteDialagOpen = () => {
+    setDeleteDialogOpen(true);
+    handleDialogClose();
+  };
+
+  const handleDeleteDialagClose= () => {
+    setDeleteDialogOpen(false);
   };
 
   const handleSignOut = () => {
@@ -77,37 +78,34 @@ const MyAccount: FC<MyAccountProps> = ({ handleClose, accountDialog }) => {
             </Grid>
             <Grid item>
               <Box onClick={handleSignOut}>
-              <Typography className={classes.signout} >SIGN OUT</Typography>
+                <Typography className={classes.signout}>SIGN OUT</Typography>
               </Box>
             </Grid>
           </Grid>
-          </DialogTitle>
-          <Divider />
-          <Grid container className={classes.badgeGrid}>
-            <Grid item xs={5}>
-              <UserIcon
-                avatar={classes.avatar}
-                badgeLeft={classes.badgeLeft}
-                badgeRight={classes.badgeRight}
-                badge={classes.badge}
-                badgeName={classes.badgeName}
-              />
-            </Grid>
-            <Grid className={classes.detailGrid}>
+        </DialogTitle>
+        <Divider />
+        <Grid container className={classes.badgeGrid}>
+          <Grid item xs={5}>
+            <UserIcon
+              avatar={classes.avatar}
+              badgeLeft={classes.badgeLeft}
+              badgeRight={classes.badgeRight}
+              badge={classes.badge}
+              badgeName={classes.badgeName}
+            />
+          </Grid>
+          <Grid className={classes.detailGrid}>
             <Typography className={classes.username}>
-                {email?.charAt(0).toUpperCase() + email?.slice(1)}
-              </Typography>
-              <Typography className={classes.mail}>{user?.email}</Typography>
-            </Grid>
+              {email?.charAt(0).toUpperCase() + email?.slice(1)}
+            </Typography>
+            <Typography className={classes.mail}>{user?.email}</Typography>
           </Grid>
-          <Grid display={"flex"} justifyContent={"flex-end"}>
-            <Button
-              className={classes.deleteAccount}
-              onClick={handleDialagOpen}
-            >
-              Delete Account
-            </Button>
-          </Grid>
+        </Grid>
+        <Grid display={"flex"} justifyContent={"flex-end"}>
+          <Button className={classes.deleteAccount} onClick={handleDialagOpen}>
+            Delete Account
+          </Button>
+        </Grid>
       </Dialog>
       <Dialog
         open={isDialogOpen}
@@ -115,29 +113,19 @@ const MyAccount: FC<MyAccountProps> = ({ handleClose, accountDialog }) => {
         fullWidth
         maxWidth="xs"
       >
-        <DialogTitle>
-          <Typography className={classes.title}>{CONFIRMATION}</Typography>
-        </DialogTitle>
-        <DialogContent>
-          <Typography>
-            {DELETE_ACCOUNT_CONFIRMATION_CONTENT}{" "}
-            <span className={classes.statement}>{DELETE_BOLD_STATEMENT}</span>
-          </Typography>
-          <TextField
-            className={classes.field}
-            fullWidth
-            size="small"
-            inputProps={{ style: { fontSize: 14 } }}
-            onChange={handleFieldChange}
-            placeholder={`${DELETE_ACCOUNT} ${user?.email}`}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button className={classes.cancel} onClick={handleDialogClose}>
-            {CANCEL}
-          </Button>
-          <Button className={classes.continue}>{CONTINUE}</Button>
-        </DialogActions>
+        <Confirmation
+          handleDeleteDialagOpen={handleDeleteDialagOpen}
+          handleDialogClose={handleDialogClose}
+          handleFieldChange={handleFieldChange}
+        />
+      </Dialog>
+
+      <Dialog
+        open={isDeleteDialogOpen}
+        onClose={handleDeleteDialagClose}
+        fullWidth
+      >
+        <DeleteAccount handleDeleteDialagClose={handleDeleteDialagClose}/>
       </Dialog>
     </>
   );
