@@ -26,3 +26,11 @@ export const DELETE_CAMEL_CASE = "Delete account";
 export const DELETE_INSTRUCTION =
   "Deleting your account will remove your data permanently. You can cancel deletion by logging in again within 30 days. After 30 days, you won't be able to retrieve your data.";
 export const REASON_DELETE_ACCOUNT = "Reason for deleting account"
+
+export const PLACEHOLDER_VALUES = [
+  "What are your biggest issues when using Money Lover?",
+  "What did you expect from Money Lover in the beginning?",
+  "Which features in Money Lover are not practical for you?",
+  "Your data is completely safe and secure. Let us know if anything still concerns you.",
+  "Are there any other reasons for your decision?"
+]

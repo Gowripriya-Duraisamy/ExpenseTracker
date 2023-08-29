@@ -1,4 +1,4 @@
-import { Box, Divider, Dialog, Drawer, IconButton } from "@mui/material";
+import { Box, Divider, Drawer, IconButton } from "@mui/material";
 import { Menu, Person, AccountBalanceWallet } from "@mui/icons-material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,7 @@ import MenuItem from "./Menu";
 import ReusableIcon from "../../../../components/ReusableIcon";
 import AccountInfo from "./AccountInfo";
 import { useSelector } from "../../../../store";
-import MyAccount from "./MyAccount";
+import MyAccount from "./AccountInfo/MyAccount";
 
 const SwipeDrawer = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);

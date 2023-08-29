@@ -3,7 +3,7 @@ import { Box, Drawer, Grid, IconButton, Typography } from "@mui/material";
 import ReusableIcon from "../../../components/ReusableIcon";
 
 import classes from "./leftbar.module.css";
-import SwipeDrawer from "./Drawer/SwipeDrawer";
+import SwipeDrawer from "./Drawer";
 import { useLocation } from "react-router-dom";
 import { green } from "@mui/material/colors";
 

@@ -1,8 +1,8 @@
 import { Typography } from "@mui/material";
 
-import classes from "./drawer.module.css";
+import classes from "../drawer.module.css";
 import UserIcon from "./userIcon";
-import useAuth from "../../../../hooks/useAuth";
+import useAuth from "../../../../../hooks/useAuth";
 
 const AccountInfo = () => {
   const { user } = useAuth();

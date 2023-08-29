@@ -1,0 +1,75 @@
+
+.cancel {
+    color: #f65454;
+    font-weight: 600;
+    font-size: 14px;
+    margin: 0 1rem;
+}
+
+.continue{
+    color:#2db84c;
+    font-weight: 600;
+    font-size: 14px;
+    margin-right: 1.5rem;
+}
+
+.deleteAccount {
+    text-decoration: underline;
+    color: #00000073;
+    font-size: 16px;
+    text-transform: none;
+}
+
+.deleteAccount:hover {
+    background: none;
+    text-decoration: underline;
+}
+
+.instruction {
+   background-color : #fff5a6;
+   padding: 16px 32px;
+   font-size: 14px;
+}
+
+.textBox {
+    border: 1px #e4e6f2 solid;
+    border-radius: 12px;
+    padding: 8px 12px;
+    padding-bottom: 4px;
+    margin-left: 28px;
+    margin-top: 8px;
+}
+
+.adornment {
+    padding: 0 8px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+.adornmentDanger {
+    padding: 0 8px;
+    display: flex;
+    justify-content: flex-end;
+    color: #eb5757;
+}
+
+.radioLabel {
+    font-weight: bolder;
+    font-size: 14px;
+    color: black;
+}
+
+.title{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.statement {
+    font-weight: bolder;
+    font-size: 14px;
+}
+
+.field {
+    margin: 8px;
+    margin-left: 0;
+}

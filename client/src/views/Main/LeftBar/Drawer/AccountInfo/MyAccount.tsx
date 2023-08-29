@@ -13,9 +13,9 @@ import { ChangeEvent, FC, useState } from "react";
 
 import classes from "./myaccount.module.css";
 import UserIcon from "./userIcon";
-import useAuth from "../../../../hooks/useAuth";
-import Confirmation from "./Confirmation";
-import DeleteAccount from "./DeleteAccount";
+import useAuth from "../../../../../hooks/useAuth";
+import Confirmation from "../DeleteAccount/Confirmation";
+import DeleteAccount from "../DeleteAccount/Delete";
 
 export interface MyAccountProps {
   handleClose: () => void;
@@ -124,6 +124,13 @@ const MyAccount: FC<MyAccountProps> = ({ handleClose, accountDialog }) => {
         open={isDeleteDialogOpen}
         onClose={handleDeleteDialagClose}
         fullWidth
+        maxWidth="sm"
+        PaperProps={{
+          sx: {
+            maxHeight: 1000,
+            maxWidth: '500px'
+          }
+        }}
       >
         <DeleteAccount handleDeleteDialagClose={handleDeleteDialagClose}/>
       </Dialog>

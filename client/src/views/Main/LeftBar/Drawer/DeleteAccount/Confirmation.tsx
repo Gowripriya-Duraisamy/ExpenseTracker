@@ -14,9 +14,9 @@ import {
   DELETE_ACCOUNT,
   CANCEL,
   CONTINUE,
-} from "../../../../constants";
-import classes from "./myaccount.module.css";
-import useAuth from "../../../../hooks/useAuth";
+} from "../../../../../constants";
+import classes from "./delete.module.css";
+import useAuth from "../../../../../hooks/useAuth";
 
 export interface ConfirmationProps {
   handleFieldChange: (event: ChangeEvent<HTMLInputElement>) => void;
