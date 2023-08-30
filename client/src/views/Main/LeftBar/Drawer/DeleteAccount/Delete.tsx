@@ -25,9 +25,10 @@ import {
 
 export interface DeleteAccountProps {
   handleDeleteDialagClose: () => void;
+  handleDelete: () => void;
 }
 
-const DeleteAccount: FC<DeleteAccountProps> = ({ handleDeleteDialagClose }) => {
+const DeleteAccount: FC<DeleteAccountProps> = ({ handleDeleteDialagClose, handleDelete }) => {
   const [reason, setReason] = useState("");
   const [reasonData, setReasonData] = useState('');
 
@@ -137,7 +138,7 @@ const DeleteAccount: FC<DeleteAccountProps> = ({ handleDeleteDialagClose }) => {
         <Button className={classes.cancel} onClick={handleDeleteDialagClose}>
           {CANCEL}
         </Button>
-        <Button className={classes.continue} disabled={!reason}>
+        <Button className={classes.continue} disabled={!reason} onClick={handleDelete}>
           {DELETE}
         </Button>
       </DialogActions>

@@ -12,10 +12,18 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { ChangeEvent, FC, useState } from "react";
 
 import classes from "./myaccount.module.css";
+import class1 from "../DeleteAccount/delete.module.css"
 import UserIcon from "./userIcon";
 import useAuth from "../../../../../hooks/useAuth";
 import Confirmation from "../DeleteAccount/Confirmation";
 import DeleteAccount from "../DeleteAccount/Delete";
+import ReusableDialog from "../DeleteAccount/ResusableDialog";
+import {
+  CANCEL,
+  DELETE_INSTRUCTION,
+  SURE_DELETE,
+  YES_DELETE,
+} from "../../../../../constants";
 
 export interface MyAccountProps {
   handleClose: () => void;
@@ -33,6 +41,7 @@ const MyAccount: FC<MyAccountProps> = ({ handleClose, accountDialog }) => {
 
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [isFinalConfirmationDialogOpen, setFinalConfirmationOpen] = useState(false);
 
   const handleDialagOpen = () => {
     setDialogOpen(true);
@@ -48,13 +57,26 @@ const MyAccount: FC<MyAccountProps> = ({ handleClose, accountDialog }) => {
     handleDialogClose();
   };
 
-  const handleDeleteDialagClose= () => {
+  const handleDeleteDialagClose = () => {
     setDeleteDialogOpen(false);
   };
 
+  const handleDelete = () => {
+    setFinalConfirmationOpen(true);
+    handleDeleteDialagClose();
+  }
+
+  const handleFinalClose = () => {
+    setFinalConfirmationOpen(true)
+  }
+
+  const handleDeleteSuccess = () => {
+
+  }
+
   const handleSignOut = () => {
     logout();
-  }
+  };
 
   return (
     <>
@@ -128,11 +150,29 @@ const MyAccount: FC<MyAccountProps> = ({ handleClose, accountDialog }) => {
         PaperProps={{
           sx: {
             maxHeight: 1000,
-            maxWidth: '500px'
-          }
+            maxWidth: "500px",
+          },
         }}
       >
-        <DeleteAccount handleDeleteDialagClose={handleDeleteDialagClose}/>
+        <DeleteAccount handleDeleteDialagClose={handleDeleteDialagClose} handleDelete={handleDelete}/>
+      </Dialog>
+
+      <Dialog
+        open={isFinalConfirmationDialogOpen}
+        onClose={handleFinalClose}
+        fullWidth
+        maxWidth="xs"
+      >
+        <ReusableDialog
+          title={SURE_DELETE}
+          content={DELETE_INSTRUCTION}
+          success={YES_DELETE}
+          failure={CANCEL}
+          fCN={class1.continue}
+          sCN={class1.cancel}
+          handleClose={handleFinalClose}
+          handleSuccess={handleDeleteSuccess}
+        />
       </Dialog>
     </>
   );
