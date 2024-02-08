@@ -24,6 +24,7 @@ import {
   SURE_DELETE,
   YES_DELETE,
 } from "../../../../../constants";
+import { deleteAccount } from "../../../../../slices/account";
 
 export interface MyAccountProps {
   handleClose: () => void;
@@ -33,15 +34,19 @@ export interface MyAccountProps {
 const MyAccount: FC<MyAccountProps> = ({ handleClose, accountDialog }) => {
   const { user, logout } = useAuth();
   const email = user?.email.split("@")[0] || "";
-  const [fieldValue, SetFieldValue] = useState("");
-
-  const handleFieldChange = (event: ChangeEvent<HTMLInputElement>) => {
-    SetFieldValue(event.target.value);
-  };
-
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [isFinalConfirmationDialogOpen, setFinalConfirmationOpen] = useState(false);
+  const [reason, setReason] = useState("");
+  const [reasonData, setReasonData] = useState('');
+
+  const handleReasonChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setReason((event.target as HTMLInputElement).value);
+  };
+
+  const handleReasonDataChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setReasonData((event.target as HTMLInputElement).value);
+  };
 
   const handleDialagOpen = () => {
     setDialogOpen(true);
@@ -71,7 +76,8 @@ const MyAccount: FC<MyAccountProps> = ({ handleClose, accountDialog }) => {
   }
 
   const handleDeleteSuccess = () => {
-
+    //api call
+    deleteAccount({reason, reasonData})
   }
 
   const handleSignOut = () => {
@@ -138,7 +144,6 @@ const MyAccount: FC<MyAccountProps> = ({ handleClose, accountDialog }) => {
         <Confirmation
           handleDeleteDialagOpen={handleDeleteDialagOpen}
           handleDialogClose={handleDialogClose}
-          handleFieldChange={handleFieldChange}
         />
       </Dialog>
 
@@ -154,7 +159,14 @@ const MyAccount: FC<MyAccountProps> = ({ handleClose, accountDialog }) => {
           },
         }}
       >
-        <DeleteAccount handleDeleteDialagClose={handleDeleteDialagClose} handleDelete={handleDelete}/>
+        <DeleteAccount 
+        reason={reason}
+        reasonData={reasonData}
+        handleReasonChange={handleReasonChange}
+        handleReasonDataChange={handleReasonDataChange}
+        handleDeleteDialagClose={handleDeleteDialagClose} 
+        handleDelete={handleDelete}
+        />
       </Dialog>
 
       <Dialog

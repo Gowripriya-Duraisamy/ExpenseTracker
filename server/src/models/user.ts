@@ -3,7 +3,8 @@ import { model, Schema } from "mongoose";
 export interface UserProfile {
   email: string;
   password: string;
-  walletExist: boolean
+  walletExist: boolean;
+  expireAt?: string;
 }
 
 const UserProfileSchema = new Schema<UserProfile>({
@@ -19,7 +20,11 @@ const UserProfileSchema = new Schema<UserProfile>({
   walletExist: {
     type: Boolean,
     default: false
+  },
+  expireAt: {
+    type: Date
   }
 });
+UserProfileSchema.index({"expireAt": 1 },{ expireAfterSeconds: 0 });
 
 export default model("User", UserProfileSchema, "user");

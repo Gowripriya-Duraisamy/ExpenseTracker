@@ -1,4 +1,4 @@
-import { ChangeEvent, FC } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import {
   DialogTitle,
   Typography,
@@ -14,22 +14,34 @@ import {
   DELETE_ACCOUNT,
   CANCEL,
   CONTINUE,
+  INVALID_INPUT,
 } from "../../../../../constants";
 import classes from "./delete.module.css";
 import useAuth from "../../../../../hooks/useAuth";
 
 export interface ConfirmationProps {
-  handleFieldChange: (event: ChangeEvent<HTMLInputElement>) => void;
   handleDialogClose: () => void;
   handleDeleteDialagOpen: () => void;
 }
 
 const Confirmation: FC<ConfirmationProps> = ({
   handleDialogClose,
-  handleFieldChange,
   handleDeleteDialagOpen,
 }) => {
   const { user } = useAuth();
+  const [fieldValue, setFieldValue] = useState("");
+  const [fieldError, setFieldError] = useState(false);
+
+  const handleFieldChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setFieldValue(event.target.value);
+  };
+
+  const handleContinueClick = () => {
+    const isErrorOccured = fieldValue !== `DELETE ACCOUNT ${user?.email}`;
+    setFieldError(isErrorOccured);
+    !isErrorOccured && handleDeleteDialagOpen();
+  }
+
   return (
     <>
       <DialogTitle>
@@ -46,6 +58,8 @@ const Confirmation: FC<ConfirmationProps> = ({
           size="small"
           inputProps={{ style: { fontSize: 14 } }}
           onChange={handleFieldChange}
+          error={fieldError}
+          helperText={fieldError ? INVALID_INPUT : null}
           placeholder={`${DELETE_ACCOUNT} ${user?.email}`}
         />
       </DialogContent>
@@ -53,7 +67,7 @@ const Confirmation: FC<ConfirmationProps> = ({
         <Button className={classes.cancel} onClick={handleDialogClose}>
           {CANCEL}
         </Button>
-        <Button className={classes.continue} onClick={handleDeleteDialagOpen}>
+        <Button className={classes.continue} onClick={handleContinueClick}>
           {CONTINUE}
         </Button>
       </DialogActions>

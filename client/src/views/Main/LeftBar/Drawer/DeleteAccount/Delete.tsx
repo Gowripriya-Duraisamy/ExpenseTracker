@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC } from "react";
 import {
   Box,
   Button,
@@ -26,20 +26,13 @@ import {
 export interface DeleteAccountProps {
   handleDeleteDialagClose: () => void;
   handleDelete: () => void;
+  reason: string;
+  reasonData: string;
+  handleReasonChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleReasonDataChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const DeleteAccount: FC<DeleteAccountProps> = ({ handleDeleteDialagClose, handleDelete }) => {
-  const [reason, setReason] = useState("");
-  const [reasonData, setReasonData] = useState('');
-
-  const handleReasonChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setReason((event.target as HTMLInputElement).value);
-  };
-
-  const handleReasonDataChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setReasonData((event.target as HTMLInputElement).value);
-  };
-
+const DeleteAccount: FC<DeleteAccountProps> = ({ handleDeleteDialagClose, handleDelete, reason, reasonData, handleReasonChange, handleReasonDataChange }) => {
   return (
     <>
       <DialogTitle>

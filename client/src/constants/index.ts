@@ -28,6 +28,7 @@ export const DELETE_INSTRUCTION =
 export const REASON_DELETE_ACCOUNT = "Reason for deleting account"
 export const YES_DELETE = "Yes, Delete Now"
 export const SURE_DELETE = "Are you sure you want to delete your account?";
+export const INVALID_INPUT = "Invalid input";
 export const SUCCESSFULL_DELETE = "Successfully Deleted!"
 export const SUCCESS_DELETE_CONTENT1 = "Account will be completely deleted on";
 export const SUCCESS_DELETE_CONTENT2 = "You can cancel deletion by logging in again within 30 days. After that you will not able to retrieve your account";
